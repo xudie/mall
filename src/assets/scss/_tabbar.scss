@@ -10,9 +10,9 @@
         flex: 1;
         @include flex-center(column);
 
-        img {
-            width: $icon-img-size;
-            height: $icon-img-size;
+        .iconfont {
+            margin-bottom: 4px;
+            font-size: $icon-font-size;
         }
     }
 }
