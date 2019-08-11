@@ -12,7 +12,7 @@ $modal-bgc: rgba(0, 0, 0, 0.4);
 
 //font size
 $font-size-base: 12px;
-$font-size-l: $font-size-base + 2;
+$font-size-l: $font-size-base+2;
 $icon-font-size-sm: 18px;
 $icon-font-size: 24px;
 
@@ -22,7 +22,7 @@ $tabbar-z-index: 1000;
 $backtop-z-index: 1100;
 $search-z-index: 1200;
 $product-z-index: 1200;
-$search-popup-z-index: $search-z-index + 10;
+$search-popup-z-index: $search-z-index+10;
 $category-popup-z-index: $search-z-index - 10;
 
 //size

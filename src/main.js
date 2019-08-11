@@ -1,7 +1,13 @@
+import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import '@/assets/scss/index.scss'
+import fastclick from 'fastclick'
+
+//fastclick用于消除300毫秒延迟
+fastclick.attach(document.body)
 
 Vue.config.productionTip = false
 
