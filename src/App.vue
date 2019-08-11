@@ -4,13 +4,19 @@
       <router-view />
     </div>
 
-    <div class="g-footer-contain"></div>
+    <div class="g-footer-container">
+      <CTabbar />
+    </div>
   </div>
 </template>
 
 <script>
+import CTabbar from "./components/tabbar";
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    CTabbar
+  }
 };
 </script>
 
