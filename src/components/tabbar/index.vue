@@ -28,4 +28,9 @@ export default {
 
 <style lang="scss" scoped>
 // scoped:只作用于当前页面
+@import "~@/assets/scss/mixins";
+
+.router-link-active {
+  color: $link-active-color;
+}
 </style>

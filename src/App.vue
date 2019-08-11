@@ -5,7 +5,7 @@
     </div>
 
     <div class="g-footer-container">
-      <CTabbar />
+      <c-tabbar />
     </div>
   </div>
 </template>
