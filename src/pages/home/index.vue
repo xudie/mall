@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <header class="g-header-container"></header>
+    <header class="g-header-container">
+      <home-header />
+    </header>
     <div></div>
     <!-- 回到顶部 -->
     <div class="g-backtop-container"></div>
@@ -9,8 +11,13 @@
 </template>
 
 <script>
+import HomeHeader from "./header";
+
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    HomeHeader
+  }
 };
 </script>
 
