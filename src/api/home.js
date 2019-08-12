@@ -2,9 +2,6 @@ import axios from 'axios';
 import {
     SUCC_CODE
 } from './config';
-import {
-    timeout
-} from 'q';
 
 //获取幻灯片数据--ajax
 export const getHomeSlider = () => {
@@ -17,7 +14,7 @@ export const getHomeSlider = () => {
         throw new Error('没用成功获取到数据！');
     }).catch(err => { //捕获错误
         if (err) {
-            console.log(err);
+            this.console.log(err);
         }
         //捕获到错误后图片
         return [{

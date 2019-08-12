@@ -13,15 +13,16 @@ export default {
     swiper
   },
   props: {
-    //滑动方向
+    // 滑动方向
     direction: {
       type: String,
-      default: "horizontal", //水平滑动
+      // 水平滑动
+      default: "horizontal",
       validator(value) {
         return ["horizontal", "vertical"].indexOf(value) > -1;
       }
     },
-    //滑动速度
+    // 滑动速度
     interval: {
       type: Number,
       default: 3000,
@@ -29,12 +30,12 @@ export default {
         return value >= 0;
       }
     },
-    //无缝滚动
+    // 无缝滚动
     loop: {
       type: Boolean,
       default: true
     },
-    //分页器
+    // 分页器
     pagination: {
       type: Boolean,
       default: true
@@ -43,22 +44,26 @@ export default {
   data() {
     return {
       swiperOption: {
-        watchOverflow: true, //如果只有一张图片就不让滑动了
+        // 如果只有一张图片就不让滑动了
+        watchOverflow: true,
+        // 滑动方向
         direction: this.direction,
-        //
+        // 自动切换
         autoplay: this.interval
           ? {
-              delay: this.interval,
-              disableOnInteeeeeraction: false
+              delay: this.interval
             }
           : false,
         slidesPerView: 1, //设置容器同时显示几张图片
         loop: this.loop,
-        paginationP: {
+        pagination: {
           el: this.pagination ? ".swiper-pagination" : null
         }
       }
     };
+  },
+  mounted() {
+    this.onsole.log(this.data);
   }
 };
 </script>
