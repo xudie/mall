@@ -3,7 +3,9 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <div></div>
+    <div>
+      <home-slider />
+    </div>
     <!-- 回到顶部 -->
     <div class="g-backtop-container"></div>
     <router-view />
@@ -12,11 +14,13 @@
 
 <script>
 import HomeHeader from "./header";
+import HomeSlider from "./slider";
 
 export default {
   name: "Home",
   components: {
-    HomeHeader
+    HomeHeader,
+    HomeSlider
   }
 };
 </script>

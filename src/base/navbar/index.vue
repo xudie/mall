@@ -49,6 +49,7 @@ export default {
     margin: 0 10px;
 
     ~ .mine-navbar-center {
+      // 默认值。没有定位，元素出现在正常的流中（忽略 top, bottom, left, right 或者 z-index 声明）。
       position: static;
     }
   }
@@ -70,7 +71,7 @@ export default {
   }
   &-text {
     width: 100%;
-    font-size: 30px;
+    font-size: 18px;
     line-height: 1.5;
     @include ellipsis();
   }
