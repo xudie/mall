@@ -5,6 +5,7 @@
     </header>
     <me-scroll>
       <home-slider />
+      <home-nav></home-nav>
     </me-scroll>
     <!-- 回到顶部 -->
     <div class="g-backtop-container"></div>
@@ -16,13 +17,15 @@
 import MeScroll from "../../base/scroll";
 import HomeHeader from "./header";
 import HomeSlider from "./slider";
+import HomeNav from "./nav";
 
 export default {
   name: "Home",
   components: {
     MeScroll,
     HomeHeader,
-    HomeSlider
+    HomeSlider,
+    HomeNav
   }
 };
 </script>
