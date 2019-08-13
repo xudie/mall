@@ -63,7 +63,7 @@ export default {
     };
   },
   mounted() {
-    this.onsole.log(this.data);
+    //this.console.log(this.data);
   }
 };
 </script>

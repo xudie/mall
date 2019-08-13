@@ -12,6 +12,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "^2.6.5",
     "fastclick": "^1.0.6",
+    "jsonp": "^0.2.1",
     "sass": "^1.22.9",
     "sass-loader": "^7.2.0",
     "vue": "^2.6.10",
