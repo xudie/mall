@@ -2,6 +2,9 @@ import axios from 'axios';
 import {
     SUCC_CODE
 } from './config';
+// import {
+//     resolve
+// } from 'dns';
 
 //获取幻灯片数据--ajax
 export const getHomeSlider = () => {
@@ -21,6 +24,12 @@ export const getHomeSlider = () => {
             linkUrl: "http://www.imooc.com",
             picUrl: require('@/assets/img/404.png')
         }]
-    })
+    }).then(data => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(data);
+            }, 1000);
+        });
+    });
 
 };

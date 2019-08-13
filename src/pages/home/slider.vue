@@ -1,11 +1,12 @@
 <template>
   <div class="slider-wrapper">
+    <me-loading v-if="!sliders.length"></me-loading>
     <me-slider
       :direction="direction"
       :loop="loop"
       :interval="interval"
       :pagination="pagination"
-      v-if="sliders.length"
+      v-else
     >
       <swiper-slide v-for="(item,index) in sliders" :key="index">
         <a :href="item.linkUrl" class="slider-link">
@@ -21,11 +22,14 @@ import MeSlider from "../../base/slider";
 import { swiperSlide } from "vue-awesome-swiper";
 import { sliderOptions } from "./config";
 import { getHomeSlider } from "../../api/home.js";
+import MeLoading from "../../base/loading/index";
+
 export default {
   name: "HomeSlider",
   components: {
     MeSlider,
-    swiperSlide
+    swiperSlide,
+    MeLoading
   },
   data() {
     return {
