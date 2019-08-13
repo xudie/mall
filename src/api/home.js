@@ -31,7 +31,6 @@ export const getHomeSlider = () => {
             }, 1000);
         });
     });
-
 };
 
 //获取热门推荐数据--jsonp

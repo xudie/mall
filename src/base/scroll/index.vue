@@ -37,7 +37,9 @@ export default {
           el: this.scrollbar ? ".swiper-scrollbar" : null,
           //是否自动隐藏
           hide: true
-        }
+        },
+        observer: true, //修改swiper自己或子元素时，自动初始化swiper
+        observeParents: true //修改swiper的父元素时，自动初始化swiper
       }
     };
   }

@@ -112,9 +112,14 @@ export default {
     //实现高和宽相等
     padding-top: 100%;
     position: relative;
+    margin-bottom: 5px;
   }
   &-img {
     width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   &-name {
     height: 36px;
@@ -149,9 +154,6 @@ export default {
   }
 }
 
-.loading-container {
-  padding-top: 100px;
-}
 .loading-container {
   padding-top: 100px;
 }
