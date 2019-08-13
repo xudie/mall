@@ -3,10 +3,9 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll></me-scroll>
-    <div>
+    <me-scroll>
       <home-slider />
-    </div>
+    </me-scroll>
     <!-- 回到顶部 -->
     <div class="g-backtop-container"></div>
     <router-view />
@@ -14,9 +13,9 @@
 </template>
 
 <script>
-import MeScroll from "base/scroll";
+import MeScroll from "../../base/scroll";
+import HomeHeader from "./header";
 import HomeSlider from "./slider";
-import HomeScoll from "./scoll";
 
 export default {
   name: "Home",
