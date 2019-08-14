@@ -63,14 +63,16 @@ export default {
           hide: true
         },
         on: {
+          // 配置: 滚动事件
           sliderMove: this.scroll,
+          // 配置：手指松开事件
           touchEnd: this.touchEnd
         }
       }
     };
   },
   watch: {
-    // 6. 监测data的变化
+    // 6. 监听 data 的变化
     data() {
       // 7. 更新滚动条
       this.update();
@@ -109,10 +111,10 @@ export default {
       }
 
       if (swiper.translate > PULL_DOWN_HEIGHT) {
-        //下拉
         if (!this.pullDown) {
           return;
         }
+
         this.pulling = true;
         swiper.allowTouchMove = false; //禁止触摸
         swiper.setTransition(swiper.params.speed);
@@ -121,6 +123,8 @@ export default {
         this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_ING);
         this.$emit("pull-down", this.pullDownEnd);
       }
+
+      // 根据调用组件传参，是否需要下拉刷新 （默认是 flase）
     },
     pullDownEnd() {
       const swiper = this.$refs.swiper.swiper;

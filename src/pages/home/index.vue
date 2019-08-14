@@ -45,9 +45,10 @@ export default {
       this.recmds = recommends;
     },
     pullToRefresh(end) {
+      // 模拟处理逻辑 2000ms 后执行回弹
       setTimeout(() => {
         end();
-      }, 1000);
+      }, 2000);
     }
   }
 };
