@@ -3,7 +3,7 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll :data="recommends" pullDown @pull-down="pullToRefresh">
+    <me-scroll :data="recmds" pullDown @pull-down="pullToRefresh">
       <home-slider />
       <home-nav />
       <home-recommend @loaded="getRecommends" />
@@ -33,13 +33,16 @@ export default {
   },
   data() {
     return {
-      recommends: []
+      recmds: []
     };
   },
   methods: {
     updateScroll() {},
+    // 2. 定义接收事件的方法
     getRecommends(recommends) {
-      this.recommends = recommends;
+      // 3. 接收 home-recommend 组件回传的参数 recommends
+      // 4. 将参数赋值给 recmds 使其修改
+      this.recmds = recommends;
     },
     pullToRefresh(end) {
       setTimeout(() => {

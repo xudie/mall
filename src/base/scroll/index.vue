@@ -27,18 +27,14 @@ export default {
     swiper,
     swiperSlide,
     MeLoading
-    // PULL_DOWN_HEIGHT,
-    // PULL_DOWN_TEXT_INIT,
-    // PULL_DOWN_TEXT_START,
-    // PULL_DOWN_TEXT_ING,
-    // PULL_DOWN_TEXT_END
   },
   props: {
     scrollbar: {
       type: Boolean,
       default: true
     },
-    //更新滚动条：参数类型
+    // 更新滚动条：参数类型
+    // 5. home 改变了这里也会改变
     data: {
       type: [Array, Object]
     },
@@ -69,21 +65,20 @@ export default {
         on: {
           sliderMove: this.scroll,
           touchEnd: this.touchEnd
-        },
-        observer: true, //修改swiper自己或子元素时，自动初始化swiper
-        observeParents: true //修改swiper的父元素时，自动初始化swiper
+        }
       }
     };
   },
   watch: {
-    //监测data的变化
+    // 6. 监测data的变化
     data() {
-      //更新滚动条
+      // 7. 更新滚动条
       this.update();
     }
   },
   methods: {
     update() {
+      // 8. 使用 swiper api 更新 swiper
       this.$refs.swiper && this.swiper.swiper.update();
     },
 
@@ -155,7 +150,7 @@ export default {
   height: 80px;
   position: absolute;
   left: 0;
-  //出格式区
+  //出可视区 bottom 是针对高度
   bottom: 100%;
 }
 </style>

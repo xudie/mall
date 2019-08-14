@@ -58,7 +58,8 @@ export default {
           this.curPage++;
           this.totalpage = data.totalpage;
           this.recommends = this.recommends.concat(data.itemList);
-          //更新滚动条
+          // 更新滚动条
+          // 1. $emit 向父级发送事件 带上参数 recommends
           this.$emit("loaded", this.recommends);
         }
       });

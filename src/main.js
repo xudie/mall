@@ -15,7 +15,7 @@ Vue.use(VueLazyload, {
   preLoad: 1,
   //失败时显示的图片
   error: require('@/assets/img/error.png'),
-  //成功时显示的GIF图
+  //加载时显示的GIF图
   loading: require('@/assets/img/loading.gif'),
   //尝试加载几次
   attempt: 1
