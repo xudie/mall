@@ -11,7 +11,7 @@
           :to="{name:'home-product',params:{id:item.baseinfo.itemId}}"
         >
           <p class="recommend-pic">
-            <img class="recommend-img" :src="item.baseinfo.picUrlNew" />
+            <img class="recommend-img" v-lazy="item.baseinfo.picUrlNew" />
           </p>
           <p class="recommend-name">{{item.name.shortName}}</p>
           <p class="recommend-origPrice">
@@ -58,7 +58,8 @@ export default {
           this.curPage++;
           this.totalpage = data.totalpage;
           this.recommends = this.recommends.concat(data.itemList);
-          //this.console.log(this.recommends);
+          //更新滚动条
+          this.$emit("loaded", this.recommends);
         }
       });
     }

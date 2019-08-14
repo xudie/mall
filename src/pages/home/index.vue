@@ -3,10 +3,10 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll>
+    <me-scroll :data="recommends">
       <home-slider />
-      <home-nav></home-nav>
-      <home-recommend></home-recommend>
+      <home-nav />
+      <home-recommend @loaded="getRecommends" />
     </me-scroll>
     <!-- 回到顶部 -->
     <div class="g-backtop-container"></div>
@@ -29,6 +29,17 @@ export default {
     HomeSlider,
     HomeNav,
     HomeRecommend
+  },
+  data() {
+    return {
+      recommends: []
+    };
+  },
+  methods: {
+    updateScroll() {},
+    getRecommends(recommends) {
+      this.recommends = recommends;
+    }
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption">
+  <swiper :options="swiperOption" ref="swiper">
     <swiper-slide>
       <slot></slot>
     </swiper-slide>
@@ -19,6 +19,9 @@ export default {
     scrollbar: {
       type: Boolean,
       default: true
+    },
+    data: {
+      type: [Array, Object]
     }
   },
   data() {
@@ -42,6 +45,16 @@ export default {
         observeParents: true //修改swiper的父元素时，自动初始化swiper
       }
     };
+  },
+  watch: {
+    data() {
+      this.update();
+    }
+  },
+  methods: {
+    update() {
+      this.$refs.swiper && this.swiper.swiper.update();
+    }
   }
 };
 </script>
