@@ -20,7 +20,7 @@ import {
   PULL_DOWN_TEXT_ING,
   PULL_DOWN_TEXT_END
 } from "../scroll/config";
-import { emit } from "cluster";
+
 export default {
   name: "MeScroll",
   components: {
