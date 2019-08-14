@@ -1,5 +1,8 @@
 <template>
   <swiper :options="swiperOption" ref="swiper">
+    <div class="mine-scroll-pull-down" v-if="pullDown">
+      <me-loading :text="pullDownText" inline ref="pullDownLoading" />
+    </div>
     <swiper-slide>
       <slot></slot>
     </swiper-slide>
@@ -9,23 +12,45 @@
 
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import MeLoading from "../loading/index";
+import {
+  PULL_DOWN_HEIGHT,
+  PULL_DOWN_TEXT_INIT,
+  PULL_DOWN_TEXT_START,
+  PULL_DOWN_TEXT_ING,
+  PULL_DOWN_TEXT_END
+} from "../scroll/config";
+import { emit } from "cluster";
 export default {
   name: "MeScroll",
   components: {
     swiper,
-    swiperSlide
+    swiperSlide,
+    MeLoading
+    // PULL_DOWN_HEIGHT,
+    // PULL_DOWN_TEXT_INIT,
+    // PULL_DOWN_TEXT_START,
+    // PULL_DOWN_TEXT_ING,
+    // PULL_DOWN_TEXT_END
   },
   props: {
     scrollbar: {
       type: Boolean,
       default: true
     },
+    //更新滚动条：参数类型
     data: {
       type: [Array, Object]
+    },
+    pullDown: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
+      pulling: false, //是否正在下拉或上拉
+      pullDownText: "PULL_DOWN_TEXT_INIT",
       swiperOption: {
         //滚动方向
         direction: "vertical",
@@ -41,19 +66,76 @@ export default {
           //是否自动隐藏
           hide: true
         },
+        on: {
+          sliderMove: this.scroll,
+          touchEnd: this.touchEnd
+        },
         observer: true, //修改swiper自己或子元素时，自动初始化swiper
         observeParents: true //修改swiper的父元素时，自动初始化swiper
       }
     };
   },
   watch: {
+    //监测data的变化
     data() {
+      //更新滚动条
       this.update();
     }
   },
   methods: {
     update() {
       this.$refs.swiper && this.swiper.swiper.update();
+    },
+
+    scroll() {
+      //this.$refs.swiper :获取swiper组件
+      const swiper = this.$refs.swiper.swiper;
+
+      if (this.pulling) {
+        return;
+      }
+
+      if (swiper.translate > 0) {
+        if (!this.pullDown) {
+          return;
+        }
+        if (swiper.translate > PULL_DOWN_HEIGHT) {
+          this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_START);
+        } else {
+          this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_INIT);
+        }
+      }
+    },
+    touchEnd() {
+      const swiper = this.$refs.swiper.swiper;
+
+      if (this.pulling) {
+        return;
+      }
+
+      if (swiper.translate > PULL_DOWN_HEIGHT) {
+        //下拉
+        if (!this.pullDown) {
+          return;
+        }
+        this.pulling = true;
+        swiper.allowTouchMove = false; //禁止触摸
+        swiper.setTransition(swiper.params.speed);
+        swiper.setTranslate(PULL_DOWN_HEIGHT);
+        swiper.params.virtualTranslate = true; //定住不回弹
+        this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_ING);
+        this.$emit("pull-down", this.pullDownEnd);
+      }
+    },
+    pullDownEnd() {
+      const swiper = this.$refs.swiper.swiper;
+
+      this.pulling = false;
+      this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_END);
+      swiper.allowTouchMove = true; //禁止触摸
+      swiper.params.virtualTranslate = false; //定住不回弹
+      swiper.setTransition(swiper.params.speed);
+      swiper.setTranslate(0);
     }
   }
 };
@@ -67,5 +149,13 @@ export default {
 }
 .swiper-slide {
   height: auto;
+}
+.mine-scroll-pull-down {
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  left: 0;
+  //出格式区
+  bottom: 100%;
 }
 </style>

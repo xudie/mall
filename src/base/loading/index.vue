@@ -5,7 +5,7 @@
         <img src="./loading.gif" alt="loading" />
       </slot>
     </span>
-    <span class="mine-loading-text" v-if="text">{{text}}</span>
+    <span class="mine-loading-text" v-if="loadingText">{{loadingText}}</span>
   </div>
 </template>
 
@@ -27,6 +27,23 @@ export default {
     inline: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      //loadingText：默认接受传过来的值
+      loadingText: this.text
+    };
+  },
+  //监听
+  watch: {
+    text(text) {
+      this.loadingText = text;
+    }
+  },
+  methods: {
+    setText(text) {
+      this.text = text;
     }
   }
 };
