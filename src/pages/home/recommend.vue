@@ -49,19 +49,26 @@ export default {
     this.getRecommend();
   },
   methods: {
+    //API
+    update() {
+      return this.getRecommend();
+    },
     getRecommend() {
       if (this.curPage > this.totalpage) {
-        return;
+        return Promise.reject(new Error("没有更多了"));
       }
-      getHomeRecommend(this.curPage).then(data => {
-        if (data) {
-          this.curPage++;
-          this.totalpage = data.totalpage;
-          this.recommends = this.recommends.concat(data.itemList);
-          // 更新滚动条
-          // 1. $emit 向父级发送事件 带上参数 recommends
-          this.$emit("loaded", this.recommends);
-        }
+      return getHomeRecommend(this.curPage).then(data => {
+        return new Promise(resolve => {
+          if (data) {
+            this.curPage++;
+            this.totalpage = data.totalpage;
+            this.recommends = this.recommends.concat(data.itemList);
+            // 更新滚动条
+            // 1. $emit 向父级发送事件 带上参数 recommends
+            this.$emit("loaded", this.recommends);
+            resolve();
+          }
+        });
       });
     }
   }

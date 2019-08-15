@@ -3,10 +3,10 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll :data="recmds" pullDown @pull-down="pullToRefresh">
+    <me-scroll :data="recmds" pullDown pullUp @pull-down="pullToRefresh" @pull-up="pullToLoadMroe">
       <home-slider ref="slider" />
       <home-nav />
-      <home-recommend @loaded="getRecommends" />
+      <home-recommend @loaded="getRecommends" ref="recommend" />
     </me-scroll>
     <!-- 回到顶部 -->
     <div class="g-backtop-container"></div>
@@ -20,7 +20,7 @@ import HomeHeader from "./header";
 import HomeSlider from "./slider";
 import HomeNav from "./nav";
 import HomeRecommend from "./recommend";
-import { setTimeout } from "timers";
+//import { setTimeout } from "timers";
 
 export default {
   name: "Home",
@@ -47,6 +47,21 @@ export default {
     pullToRefresh(end) {
       this.$refs.slider.update().then(end);
       // 模拟处理逻辑 2000ms 后执行回弹
+      // setTimeout(() => {
+      //   end();
+      // }, 2000);
+    },
+    pullToLoadMroe(end) {
+      this.$refs.recommend
+        .update()
+        .then(end)
+        .catch(err => {
+          if (err) {
+            this.console.log(err);
+          }
+          end();
+        });
+      //模拟处理逻辑 2000ms 后执行回弹
       // setTimeout(() => {
       //   end();
       // }, 2000);
