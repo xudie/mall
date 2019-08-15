@@ -4,7 +4,7 @@
       <home-header />
     </header>
     <me-scroll :data="recmds" pullDown @pull-down="pullToRefresh">
-      <home-slider />
+      <home-slider ref="slider" />
       <home-nav />
       <home-recommend @loaded="getRecommends" />
     </me-scroll>
@@ -45,10 +45,11 @@ export default {
       this.recmds = recommends;
     },
     pullToRefresh(end) {
+      this.$refs.slider.update().then(end);
       // 模拟处理逻辑 2000ms 后执行回弹
-      setTimeout(() => {
-        end();
-      }, 2000);
+      // setTimeout(() => {
+      //   end();
+      // }, 2000);
     }
   }
 };

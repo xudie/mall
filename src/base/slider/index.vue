@@ -1,5 +1,5 @@
 <template>
-  <swiper :options="swiperOption">
+  <swiper :options="swiperOption" :key="keyId">
     <slot></slot>
     <div class="swiper-pagination" v-if="pagination" slot="pagination"></div>
   </swiper>
@@ -39,11 +39,37 @@ export default {
     pagination: {
       type: Boolean,
       default: true
+    },
+    data: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   data() {
     return {
-      swiperOption: {
+      keyId: Math.random()
+    };
+  },
+  watch: {
+    data(newData) {
+      //当传进来的数组为空数组
+      if (newData.length === 0) {
+        return;
+      }
+      //每一次更新都更新一下loop的值
+      this.swiperOption.loop = newData.length === 1 ? false : this.loop;
+
+      this.keyId = Math.random();
+    }
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.swiperOption = {
         // 如果只有一张图片就不让滑动了
         watchOverflow: true,
         // 滑动方向
@@ -55,12 +81,13 @@ export default {
             }
           : false,
         slidesPerView: 1, //设置容器同时显示几张图片
-        loop: this.loop,
+        //当幻灯片只有一张时不进行无缝轮播
+        loop: this.data.length <= 1 ? false : this.loop,
         pagination: {
           el: this.pagination ? ".swiper-pagination" : null
         }
-      }
-    };
+      };
+    }
   },
   mounted() {
     //this.console.log(this.data);

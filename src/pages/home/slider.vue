@@ -2,6 +2,7 @@
   <div class="slider-wrapper">
     <me-loading v-if="!sliders.length"></me-loading>
     <me-slider
+      :data="sliders"
       :direction="direction"
       :loop="loop"
       :interval="interval"
@@ -45,9 +46,14 @@ export default {
     this.getSliders();
   },
   methods: {
+    // API 外部使用的幻灯片接口
+    update() {
+      return this.getSliders();
+    },
+    //内部使用的幻灯片接口
     getSliders() {
       //成功之后
-      getHomeSlider().then(data => {
+      return getHomeSlider().then(data => {
         this.sliders = data;
       });
     }
