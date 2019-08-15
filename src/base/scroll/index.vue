@@ -4,7 +4,7 @@
       <me-loading :text="pullDownText" inline ref="pullDownLoading" />
     </div>
     <div class="mine-scroll-pull-up" v-if="pullUp">
-      <me-loading :text="pullUPText" inline ref="pullUPLoading" />
+      <me-loading :text="pullUpText" inline ref="pullUpLoading" />
     </div>
     <swiper-slide>
       <slot></slot>
@@ -55,12 +55,28 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      pulling: false, //是否正在下拉或上拉
-      pullDownText: "PULL_DOWN_TEXT_INIT",
-      pullUPText: "PULL_UP_TEXT_INIT",
-      swiperOption: {
+  created() {
+    //console.log(this.swiper);
+
+    this.init();
+  },
+  watch: {
+    // 6. 监听 data 的变化
+    data() {
+      // 7. 更新滚动条
+      this.update();
+    }
+  },
+  methods: {
+    update() {
+      // 8. 使用 swiper api 更新 swiper
+      this.$refs.swiper && this.$refs.swiper.swiper.update();
+    },
+    init() {
+      this.pulling = false; //是否正在下拉或上拉
+      this.pullDownText = PULL_DOWN_TEXT_INIT;
+      this.pullUpText = PULL_UP_TEXT_INIT;
+      this.swiperOption = {
         //滚动方向
         direction: "vertical",
         //一页里面可以看到的图片
@@ -81,22 +97,8 @@ export default {
           // 配置：手指松开事件
           touchEnd: this.touchEnd
         }
-      }
-    };
-  },
-  watch: {
-    // 6. 监听 data 的变化
-    data() {
-      // 7. 更新滚动条
-      this.update();
-    }
-  },
-  methods: {
-    update() {
-      // 8. 使用 swiper api 更新 swiper
-      this.$refs.swiper && this.swiper.swiper.update();
+      };
     },
-
     scroll() {
       //this.$refs.swiper :获取swiper组件
       const swiper = this.$refs.swiper.swiper;
@@ -122,14 +124,14 @@ export default {
         }
 
         //是否达到上拉的触发条件
-        const isPullUp =
+        const ispullUp =
           Math.abs(swiper.translate) + swiper.height - PULL_UP_HEIGHT >
           parseInt;
 
-        if (isPullUp) {
-          this.$refs.pullUPLoading.setText(PULL_UP_TEXT_START);
+        if (ispullUp) {
+          this.$refs.pullUpLoading.setText(PULL_UP_TEXT_START);
         } else {
-          this.$refs.pullUPLoading.setText(PULL_UP_TEXT_INIT);
+          this.$refs.pullUpLoading.setText(PULL_UP_TEXT_INIT);
         }
       }
     },
@@ -157,11 +159,11 @@ export default {
       else if (swiper.isEnd) {
         const totalHeight = parseInt(swiper.$wrapperEl.css("height"));
         //判断是否满足上拉的条件
-        const isPullUp =
+        const ispullUp =
           Math.abs(swiper.translate) + swiper.height - PULL_UP_HEIGHT >
           totalHeight;
 
-        if (isPullUp) {
+        if (ispullUp) {
           if (!this.pullUp) {
             return;
           }
@@ -170,7 +172,7 @@ export default {
           swiper.setTransition(swiper.params.speed);
           swiper.setTranslate(-(totalHeight + PULL_UP_HEIGHT - swiper.height));
           swiper.params.virtualTranslate = true; //定住不回弹
-          this.$refs.pullUPLoading.setText(PULL_UP_TEXT_ING);
+          this.$refs.pullUpLoading.setText(PULL_UP_TEXT_ING);
           this.$emit("pull-up", this.pullUpEnd);
         }
       }

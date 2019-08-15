@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      //loadingText：默认接受传过来的值
+      // loadingText：默认接受传过来的值
       loadingText: this.text
     };
   },
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     setText(text) {
-      this.text = text;
+      this.loadingText = text;
     }
   }
 };
