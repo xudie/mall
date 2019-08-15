@@ -56,8 +56,6 @@ export default {
     }
   },
   created() {
-    //console.log(this.swiper);
-
     this.init();
   },
   watch: {
@@ -71,6 +69,11 @@ export default {
     update() {
       // 8. 使用 swiper api 更新 swiper
       this.$refs.swiper && this.$refs.swiper.swiper.update();
+    },
+    //回到顶部事件
+    scrollToTop(speed, runCallbacks) {
+      this.$refs.swiper &&
+        this.$refs.swiper.swiper.slideTo(0, speed, runCallbacks);
     },
     init() {
       this.pulling = false; //是否正在下拉或上拉
@@ -95,13 +98,16 @@ export default {
           // 配置: 滚动事件
           sliderMove: this.scroll,
           // 配置：手指松开事件
-          touchEnd: this.touchEnd
+          touchEnd: this.touchEnd,
+          transitionEnd: this.scrollEnd
         }
       };
     },
     scroll() {
       //this.$refs.swiper :获取swiper组件
       const swiper = this.$refs.swiper.swiper;
+
+      this.$emit("scroll", swiper.translate, this.$refs.swiper.swiper);
 
       if (this.pulling) {
         return;
@@ -134,6 +140,13 @@ export default {
           this.$refs.pullUpLoading.setText(PULL_UP_TEXT_INIT);
         }
       }
+    },
+    scrollEnd() {
+      this.$emit(
+        "scroll-end",
+        this.$refs.swiper.swiper.translate,
+        this.$refs.swiper.swiper
+      );
     },
     touchEnd() {
       const swiper = this.$refs.swiper.swiper;
@@ -188,6 +201,10 @@ export default {
       swiper.params.virtualTranslate = false; //回弹
       swiper.setTransition(swiper.params.speed);
       swiper.setTranslate(0);
+      //下拉header显示问题
+      setTimeout(() => {
+        this.$emit("pull-down-transition-end");
+      }, swiper.params.speed);
     },
     pullUpEnd() {
       const swiper = this.$refs.swiper.swiper;
