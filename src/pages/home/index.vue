@@ -3,13 +3,23 @@
     <header class="g-header-container">
       <home-header />
     </header>
-    <me-scroll :data="recmds" pullDown pullUp @pull-down="pullToRefresh" @pull-up="pullToLoadMroe">
+    <me-scroll
+      :data="recmds"
+      pullDown
+      pullUp
+      @pull-down="pullToRefresh"
+      @pull-up="pullToLoadMroe"
+      @scroll-end="scrollEnd"
+      ref="scroll"
+    >
       <home-slider ref="slider" />
       <home-nav />
       <home-recommend @loaded="getRecommends" ref="recommend" />
     </me-scroll>
     <!-- 回到顶部 -->
-    <div class="g-backtop-container"></div>
+    <div class="g-backtop-container">
+      <me-backtop :visible="isBacktopVisible" @back-to-top="backToTop" />
+    </div>
     <router-view />
   </div>
 </template>
@@ -20,6 +30,7 @@ import HomeHeader from "./header";
 import HomeSlider from "./slider";
 import HomeNav from "./nav";
 import HomeRecommend from "./recommend";
+import MeBacktop from "../../base/backtop";
 //import { setTimeout } from "timers";
 
 export default {
@@ -29,13 +40,16 @@ export default {
     HomeHeader,
     HomeSlider,
     HomeNav,
-    HomeRecommend
+    HomeRecommend,
+    MeBacktop
   },
   data() {
     return {
-      recmds: []
+      recmds: [],
+      isBacktopVisible: false
     };
   },
+
   methods: {
     updateScroll() {},
     // 2. 定义接收事件的方法
@@ -65,6 +79,13 @@ export default {
       // setTimeout(() => {
       //   end();
       // }, 2000);
+    },
+    scrollEnd(transition, scroll) {
+      this.isBacktopVisible = transition < 0 && -transition > scroll.height;
+    },
+    backToTop() {
+      //console.log("123");
+      this.$refs.scroll && this.$refs.scroll.scrollToTop();
     }
   }
 };
