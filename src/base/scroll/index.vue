@@ -107,7 +107,12 @@ export default {
       //this.$refs.swiper :获取swiper组件
       const swiper = this.$refs.swiper.swiper;
 
-      this.$emit("scroll", swiper.translate, this.$refs.swiper.swiper);
+      this.$emit(
+        "scroll",
+        swiper.translate,
+        this.$refs.swiper.swiper,
+        this.pulling
+      );
 
       if (this.pulling) {
         return;

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <header class="g-header-container">
-      <home-header />
+      <home-header :class="{'header-transition':isHeaderTransition}" ref="header" />
     </header>
     <me-scroll
       :data="recmds"
@@ -10,6 +10,8 @@
       @pull-down="pullToRefresh"
       @pull-up="pullToLoadMroe"
       @scroll-end="scrollEnd"
+      @scroll="scroll"
+      @pull-down-transition-end="pullDownTransitionEnd"
       ref="scroll"
     >
       <home-slider ref="slider" />
@@ -31,6 +33,7 @@ import HomeSlider from "./slider";
 import HomeNav from "./nav";
 import HomeRecommend from "./recommend";
 import MeBacktop from "../../base/backtop";
+import { HEADER_TRANSITION_HEIGHT } from "./config";
 //import { setTimeout } from "timers";
 
 export default {
@@ -46,7 +49,8 @@ export default {
   data() {
     return {
       recmds: [],
-      isBacktopVisible: false
+      isBacktopVisible: false,
+      isHeaderTransition: false
     };
   },
 
@@ -80,12 +84,31 @@ export default {
       //   end();
       // }, 2000);
     },
-    scrollEnd(transition, scroll) {
-      this.isBacktopVisible = transition < 0 && -transition > scroll.height;
+    scroll(translate) {
+      this.changeHeaderStatus(translate);
+    },
+    scrollEnd(translate, scroll, pulling) {
+      if (!pulling) {
+        this.changeHeaderStatus(translate);
+      }
+      this.isBacktopVisible = translate < 0 && -translate > scroll.height;
+    },
+    pullDownTransitionEnd() {
+      this.$refs.header.show();
     },
     backToTop() {
       //console.log("123");
       this.$refs.scroll && this.$refs.scroll.scrollToTop();
+    },
+    //改变头部header状态
+    //translate:滚动条滚过的距离
+    changeHeaderStatus(translate) {
+      if (translate > 0) {
+        this.$refs.header.hide();
+        return;
+      }
+      this.$refs.header.show();
+      this.isHeaderTransition = -translate > HEADER_TRANSITION_HEIGHT;
     }
   }
 };
