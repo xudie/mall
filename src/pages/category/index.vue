@@ -52,7 +52,7 @@ export default {
   overflow: hidden;
   height: 100%;
 }
-.sidebar {
+.slidebar {
   width: 80px;
   height: 100%;
 }
