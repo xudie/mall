@@ -29,10 +29,10 @@ export const getCategoryContent = (id) => {
     }).catch(err => {
         // 处理错误：取消前一次的请求
         if (axios.isCancel(err)) {
-            this.console.log(err);
+            //this.console.log(err);
         } else {
             //handle error
-            this.console.log(err);
+            //this.console.log(err);
         }
     });
 }

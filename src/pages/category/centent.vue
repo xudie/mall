@@ -39,6 +39,11 @@ import MeLoading from "../../base/loading";
 import MeScroll from "../../base/scroll";
 import MeBacktop from "../../base/backtop";
 import { getCategoryContent } from "../../api/category";
+import storage from "../../assets/js/storage";
+import {
+  CATEGORY_CONTENT_KEY,
+  CATEGORY_CONTENT_UPDATE_TIME_INTERVAL
+} from "./config";
 
 export default {
   name: "CategoryContent",
@@ -76,11 +81,61 @@ export default {
   },
   methods: {
     getContent(id) {
-      return getCategoryContent(id).then(data => {
-        if (data) {
-          this.content = data;
+      //通过键（CATEGORY_CONTENT_KEY）来获取本地内容
+      let contents = storage.get(CATEGORY_CONTENT_KEY);
+      //声明变量（updateTime）来保存上一次更新时间
+      let updateTime;
+      //当前时间
+      const curTime = new Date().getTime();
+
+      if (contents && contents[id]) {
+        updateTime = contents[id].updateTime || 0;
+        if (curTime - updateTime <= CATEGORY_CONTENT_UPDATE_TIME_INTERVAL) {
+          return this.getContentByLoacalStorage(contents[id]);
+        } else {
+          //从服务器端获取数据
+          return this.getContentByHTTP(id).then(() => {
+            //更新数据
+            this.updateLocalStorage(contents, id, curTime);
+          });
         }
+      } else {
+        return this.getContentByHTTP(id).then(() => {
+          this.updateLocalStorage(contents, id, curTime);
+        });
+      }
+
+      //从服务器端获取数据
+      // return getCategoryContent(id).then(data => {
+      //   if (data) {
+      //     this.content = data;
+      //   }
+      // });
+    },
+    //从缓存中获取数据
+    getContentByLoacalStorage(content) {
+      this.content = content.data;
+      //返回一个Promise对象，表示成功获取到了数据
+      return Promise.resolve();
+    },
+    //从服务器端获取数据
+    getContentByHTTP(id) {
+      return getCategoryContent(id).then(data => {
+        return new Promise(resolve => {
+          if (data) {
+            this.content = data;
+            resolve();
+          }
+        });
       });
+    },
+    //更新数据
+    updateLocalStorage(contents, id, curTime) {
+      contents = contents || {};
+      contents[id] = {};
+      contents[id].data = this.content;
+      contents[id].updateTime = curTime;
+      storage.set(CATEGORY_CONTENT_KEY, contents);
     },
     backToTop() {
       this.$refs.scroll && this.$refs.scroll.scrollToTop();

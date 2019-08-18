@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="g-container">
     <div class="g-view-container">
-      <router-view />
+      <!-- 将<router-view />放在 <keep-alive>里面，这样页面之间来回切换就不需要重新加载了 -->
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </div>
 
     <div class="g-footer-container">

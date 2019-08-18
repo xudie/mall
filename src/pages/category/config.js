@@ -1,3 +1,12 @@
+const prefix = 'mall-category'; //设置前缀
+const suffix = 'key'; //设置后缀
+// 缓存的 key 的前缀和后缀
+export const CATEGORY_CONTENT_KEY = `${prefix}-content-${suffix}`;
+// 更新的时间间隔
+//export const CATEGORY_CONTENT_UPDATE_TIME_INTERVAL = 1 * 24 * 60 * 60 * 1000; // 24h
+export const CATEGORY_CONTENT_UPDATE_TIME_INTERVAL = 10 * 1000; // 10 s
+
+
 // category names
 export const categoryNames = [{
         name: '热门推荐',
