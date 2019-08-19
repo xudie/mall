@@ -34,8 +34,8 @@ export default {
     hide() {
       this.visible = false;
     },
-    getQuery(query) {
-      console.log(query);
+    getQuery() {
+      //console.log(query);
     },
     goToSearch() {
       //可使用replace 替换当前页面
