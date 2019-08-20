@@ -67,8 +67,11 @@ export default {
   },
   methods: {
     update() {
-      // 8. 使用 swiper api 更新 swiper
-      this.$refs.swiper && this.$refs.swiper.swiper.update();
+      //$nextTick:保证数据渲染完了在执行下一步
+      this.$nextTick(() => {
+        // 8. 使用 swiper api 更新 swiper
+        this.$refs.swiper && this.$refs.swiper.swiper.update();
+      });
     },
     //回到顶部事件
     scrollToTop(speed, runCallbacks) {

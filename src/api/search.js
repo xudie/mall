@@ -31,6 +31,7 @@ export const getSearchHotKeyword = () => {
 // 获取搜索结果
 export const getSearchResult = (keyword) => {
     //console.log(keyword);
+    //https://suggest.taobao.com/sug?q=apple&code=utf-8&area=c2c&nick=&sid=null&allback=jaonp5
     const url = 'https://suggest.taobao.com/sug';
     const params = {
         q: keyword,
@@ -39,8 +40,9 @@ export const getSearchResult = (keyword) => {
         nick: '',
         sid: null
     };
-
+    //发生jsonp请求
     return jsonp(url, params, jsonpOptions).then((res) => {
+        //判断是否成功获取到值
         if (res.result) {
             return res.result;
         }

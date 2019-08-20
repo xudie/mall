@@ -17,6 +17,7 @@
 import storage from "../../assets/js/storage";
 import { SEARCH_HISTORY_KEYWORD_KEY } from "./config";
 import { searchMixin } from "../../assets/js/mixin";
+import { setTimeout } from "timers";
 export default {
   name: "SearchHistory",
   data() {
@@ -35,7 +36,9 @@ export default {
     removeItem(item) {
       this.historys = this.historys.filter(val => val !== item);
       storage.set(SEARCH_HISTORY_KEYWORD_KEY, this.historys);
-      this.$emit("remove-item", item);
+      setTimeout(() => {
+        this.$emit("remove-item", item);
+      }, 100);
     },
     showConfirm() {
       this.$emit("show-confirm");
