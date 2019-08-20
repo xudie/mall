@@ -6,9 +6,9 @@
       </header>
       <div class="g-content-container">
         <me-scroll>
-          <search-history></search-history>
-          <search-hot></search-hot>
-          <search-result></search-result>
+          <search-hot />
+          <search-history @show-confirm="showConfirm" />
+          <search-result />
         </me-scroll>
       </div>
     </div>
@@ -30,6 +30,9 @@ export default {
     SearchResult,
     SearchHot,
     MeScroll
+  },
+  methods: {
+    showConfirm() {}
   }
 };
 </script>
