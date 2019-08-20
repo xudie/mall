@@ -39,6 +39,12 @@ export default {
     },
     showConfirm() {
       this.$emit("show-confirm");
+    },
+    clear() {
+      storage.remove(SEARCH_HISTORY_KEYWORD_KEY);
+    },
+    update() {
+      this.getkeyword();
     }
   }
 };

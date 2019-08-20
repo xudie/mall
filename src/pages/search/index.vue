@@ -7,10 +7,11 @@
       <div class="g-content-container">
         <me-scroll>
           <search-hot />
-          <search-history @show-confirm="showConfirm" />
+          <search-history @show-confirm="showConfirm" ref="history" />
           <search-result />
         </me-scroll>
       </div>
+      <me-confirm msg="确定要清空吗？" ref="confirm" @confirm="clearAllSearchHistorys"></me-confirm>
     </div>
   </transition>
 </template>
@@ -21,6 +22,7 @@ import SearchHistory from "./history";
 import SearchHot from "./hot";
 import SearchResult from "./result";
 import MeScroll from "../../base/scroll/index";
+import MeConfirm from "../../base/confirm/index";
 
 export default {
   name: "Search",
@@ -29,10 +31,17 @@ export default {
     SearchHistory,
     SearchResult,
     SearchHot,
-    MeScroll
+    MeScroll,
+    MeConfirm
   },
   methods: {
-    showConfirm() {}
+    showConfirm() {
+      this.$refs.confirm.show();
+    },
+    clearAllSearchHistorys() {
+      this.$refs.history.clear();
+      this.$refs.history.update();
+    }
   }
 };
 </script>
