@@ -34,6 +34,7 @@ export default {
     MeScroll,
     MeConfirm
   },
+
   methods: {
     showConfirm() {
       this.$refs.confirm.show();

@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "MeConfirm ",
+  name: "MeConfirm",
   props: {
     title: {
       type: String,
@@ -32,6 +32,10 @@ export default {
     confirmBtnText: {
       type: String,
       default: "确定"
+    },
+    visible: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
