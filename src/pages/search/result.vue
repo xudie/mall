@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import MeLoading from "../../base/loading";
-import { getSearchResult } from "../../api/search";
-import { searchMixin } from "../../assets/js/mixin";
+import MeLoading from "base/loading";
+import { getSearchResult } from "api/search";
+import { searchMixin } from "assets/js/mixin";
 export default {
   name: "SearchResult",
   components: {

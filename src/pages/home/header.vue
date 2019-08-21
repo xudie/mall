@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import MeNavbar from "../../base/navbar";
-import MeSearchBox from "../../base/search-box";
+import MeNavbar from "base/navbar";
+import MeSearchBox from "base/search-box";
 
 export default {
   name: "HomeHeader",
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 
 .header {
   &.mine-navbar {

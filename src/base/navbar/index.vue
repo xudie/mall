@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .mine-navbar {
   @include flex-between();
   position: relative;

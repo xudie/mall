@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import MeSlider from "../../base/slider";
+import MeSlider from "base/slider";
 import { swiperSlide } from "vue-awesome-swiper";
 import { sliderOptions } from "./config";
-import { getHomeSlider } from "../../api/home.js";
-import MeLoading from "../../base/loading/index";
+import { getHomeSlider } from "api/home.js";
+import MeLoading from "base/loading/index";
 
 export default {
   name: "HomeSlider",

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { debonce } from "../../assets/js/until";
+import { debonce } from "assets/js/until";
 
 export default {
   name: "MeSearchBox",
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 $search-box-height: 30px;
 .mine-search-box-wrapper {
   display: flex;

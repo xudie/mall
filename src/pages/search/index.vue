@@ -26,8 +26,8 @@ import SearchHeader from "./header";
 import SearchHistory from "./history";
 import SearchHot from "./hot";
 import SearchResult from "./result";
-import MeScroll from "../../base/scroll/index";
-import MeConfirm from "../../base/confirm/index";
+import MeScroll from "base/scroll/index";
+import MeConfirm from "base/confirm/index";
 
 export default {
   name: "Search",
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .search {
   position: absolute;
   top: 0;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jsonp from '../assets/js/jsonp';
+import jsonp from 'assets/js/jsonp';
 import {
     jsonpOptions,
     TIMEOUT

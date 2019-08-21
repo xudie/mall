@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import MeLoading from "../../base/loading";
-import MeScroll from "../../base/scroll";
-import MeBacktop from "../../base/backtop";
-import { getCategoryContent } from "../../api/category";
-import storage from "../../assets/js/storage";
+import MeLoading from "base/loading";
+import MeScroll from "base/scroll";
+import MeBacktop from "base/backtop";
+import { getCategoryContent } from "api/category";
+import storage from "assets/js/storage";
 import {
   CATEGORY_CONTENT_KEY,
   CATEGORY_CONTENT_UPDATE_TIME_INTERVAL
@@ -149,7 +149,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .content-wrapper {
   position: relative;
   height: 100%;

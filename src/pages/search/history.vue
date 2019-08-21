@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import storage from "../../assets/js/storage";
+import storage from "assets/js/storage";
 import { SEARCH_HISTORY_KEYWORD_KEY } from "./config";
-import { searchMixin } from "../../assets/js/mixin";
+import { searchMixin } from "assets/js/mixin";
 import { setTimeout } from "timers";
 export default {
   name: "SearchHistory",
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .history {
   padding-bottom: 30px;
   background-color: #fff;

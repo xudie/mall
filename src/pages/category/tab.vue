@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import MeScroll from "../../base/scroll";
+import MeScroll from "base/scroll";
 import { categoryNames } from "./config";
 export default {
   name: "CategoryTab",
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 $tab-item-height: 46px;
 .tab {
   width: 100%;

@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import MeLoading from "../../base/loading";
-import { getSearchHotKeyword } from "../../api/search";
-import { searchMixin } from "../../assets/js/mixin";
+import MeLoading from "base/loading";
+import { getSearchHotKeyword } from "api/search";
+import { searchMixin } from "assets/js/mixin";
 
 export default {
   name: "SearchHot",
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .hot {
   padding-left: 10px;
   background-color: #fff;

@@ -5,7 +5,7 @@
       <div class="car-repeat">
         <div class="car-repeat-one">
           <div class="car-map">
-            <img src="assets/img/map.png" />
+            <img src="~assets/img/map.png" />
             <span>朝阳区管庄</span>
           </div>
           <span>编辑商品</span>
@@ -26,7 +26,7 @@
 
 <script>
 import CarHeader from "./header";
-import MeScroll from "../../base/scroll";
+import MeScroll from "base/scroll";
 export default {
   name: "Cart",
   components: {
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .car {
   width: 100%;
   height: 100%;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jsonp from '../assets/js/jsonp';
+import jsonp from 'assets/js/jsonp';
 import {
     SUCC_CODE,
     HOME_RECOMMEND_PAGE_SIZE
@@ -49,7 +49,7 @@ export const getHomeSlider = () => {
             //捕获到错误后图片
             return [{
                 linkUrl: "http://www.imooc.com",
-                picUrl: require('@/assets/img/404.png')
+                picUrl: require('assets/img/404.png')
             }]
         })
         .then(data => {
@@ -86,7 +86,7 @@ export const getHomeRecommend = (page = 1, psize = HOME_RECOMMEND_PAGE_SIZE) => 
         //捕获到错误后图片
         return [{
             linkUrl: "http://www.imooc.com",
-            picUrl: require('@/assets/img/404.png')
+            picUrl: require('assets/img/404.png')
         }]
     })
     // .then(data => {

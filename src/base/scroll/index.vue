@@ -15,7 +15,7 @@
 
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import MeLoading from "../loading/index";
+import MeLoading from "base/loading/index";
 import {
   PULL_DOWN_HEIGHT,
   PULL_DOWN_TEXT_INIT,

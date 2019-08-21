@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { getHomeRecommend } from "../../api/home";
-import MeLoading from "../../base/loading";
+import { getHomeRecommend } from "api/home";
+import MeLoading from "base/loading";
 export default {
   name: "HomeRecommend",
   components: {
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 
 .recommend {
   &-title {

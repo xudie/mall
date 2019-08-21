@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import MeScroll from "../../base/scroll";
+import MeScroll from "base/scroll";
 import HomeHeader from "./header";
 import HomeSlider from "./slider";
 import HomeNav from "./nav";
 import HomeRecommend from "./recommend";
-import MeBacktop from "../../base/backtop";
+import MeBacktop from "base/backtop";
 import { HEADER_TRANSITION_HEIGHT } from "./config";
 //import { setTimeout } from "timers";
 
@@ -115,7 +115,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 
 .home {
   width: 100%;

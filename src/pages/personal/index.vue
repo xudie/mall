@@ -15,7 +15,7 @@
 <script>
 import PersonalHeader from "./header";
 import PersonalInfo from "./info";
-import MeScroll from "../../base/scroll";
+import MeScroll from "base/scroll";
 export default {
   name: "Personal",
   components: {

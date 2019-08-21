@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import MeNavbar from "../../base/navbar";
-import MeSearchBox from "../../base/search-box";
+import MeNavbar from "base/navbar";
+import MeSearchBox from "base/search-box";
 
 export default {
   name: "SearchHeader",

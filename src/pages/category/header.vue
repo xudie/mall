@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import MeNavbar from "../../base/navbar";
+import MeNavbar from "base/navbar";
 export default {
   name: "CategoryHeader",
   components: {
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins";
+@import "~assets/scss/mixins";
 .header {
   &.mine-navbar {
     background-color: $header-bgc-translucent;
