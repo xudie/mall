@@ -5,7 +5,7 @@
       <div class="car-repeat">
         <div class="car-repeat-one">
           <div class="car-map">
-            <img src="src/assets/img/map.png" />
+            <img src="assets/img/map.png" />
             <span>朝阳区管庄</span>
           </div>
           <span>编辑商品</span>
