@@ -8,7 +8,7 @@
       </li>
     </transition-group>
     <a href="javascript:;" class="history-btn" @click="showConfirm">
-      <i class="iconfont icon-clear" @click.stop="removeItem(item)"></i>清空历史搜索
+      <i class="iconfont icon-clear" @click.stop="removeItem()"></i>清空历史搜索
     </a>
   </div>
 </template>

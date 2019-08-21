@@ -11,9 +11,8 @@
           <span>编辑商品</span>
         </div>
         <div class="car-repeat-two">
-          <input type="radio" name="quan" value="quan" />
-          <br />
-          <span>优惠券</span>
+          <i class="isYouhui" :class="{ 'active' : isYouhui }" @click="isYouhui = !isYouhui"></i>
+          <label>优惠券</label>
         </div>
         <div class="car-repeat-three">
           <span>商品用券前已免运费</span>
@@ -32,7 +31,13 @@ export default {
   components: {
     CarHeader,
     MeScroll
-  }
+  },
+  data() {
+    return {
+      isYouhui: true
+    };
+  },
+  methods: {}
 };
 </script>
 
@@ -69,6 +74,16 @@ export default {
   }
   .car-commodity {
     border-top: 1px solid rgb(224, 224, 224);
+  }
+}
+.isYouhui {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+
+  &.active {
+    background-color: green;
   }
 }
 </style>

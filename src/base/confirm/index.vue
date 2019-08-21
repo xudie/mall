@@ -32,11 +32,12 @@ export default {
     confirmBtnText: {
       type: String,
       default: "确定"
-    },
-    visible: {
-      type: Boolean,
-      default: false
     }
+  },
+  data() {
+    return {
+      visible: false
+    };
   },
   methods: {
     show() {
