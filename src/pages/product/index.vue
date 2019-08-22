@@ -5,7 +5,7 @@
     </div>
 
     <me-scroll>
-      <product-slide />
+      <product-slide :imageList="images" />
     </me-scroll>
 
     <product-footer />
@@ -22,7 +22,8 @@ import { getProductInfoById } from "api/home";
 export default {
   data() {
     return {
-      productInfo: {}
+      productInfo: {},
+      images: []
     };
   },
   name: "Pruduct",
@@ -35,11 +36,11 @@ export default {
   created() {
     let pid = this.$route.params.id;
     window.console.log(pid);
-    getProductInfoById(pid).then(data => {
-      window.console.log(data);
-      this.productInfo = data;
+    getProductInfoById(pid).then(result => {
+      window.console.log(result);
+      this.productInfo = result;
+      this.images = result.data.item.images;
     });
-    window.console.log(this.productInfo);
   },
   methods: {}
 };

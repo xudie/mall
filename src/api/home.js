@@ -108,7 +108,7 @@ export const getProductInfoById = (pid) => {
     // 调用地址
     let url = `https://unszacs.m.taobao.com/h5/mtop.taobao.detail.getdetail/6.0/` +
         `?data=%7B"itemNumId"%3A"${pid}"%2C"fromJhsH5"%3A"1"%7D`;
-    window.console.log(url);
+    //window.console.log(url);
 
     return jsonp(url, null, {
         param: 'callback'

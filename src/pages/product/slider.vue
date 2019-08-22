@@ -1,8 +1,8 @@
 <template>
   <div class="slider-wrapper">
     <me-slider :loop="loop">
-      <swiper-slide>
-        <img src />
+      <swiper-slide v-for="imgurl in images" :key="imgurl">
+        <img :src="imgurl" />
       </swiper-slide>
     </me-slider>
   </div>
@@ -18,16 +18,39 @@ export default {
     MeSlider,
     swiperSlide
   },
-  created() {},
+  // 定义接受图片列表
+  props: {
+    imageList: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
       direction: sliderOptions.direction,
       loop: sliderOptions.loop,
-      pagination: sliderOptions.pagination
+      pagination: sliderOptions.pagination,
+      images: []
     };
+  },
+  watch: {
+    imageList(list) {
+      this.images = list;
+      this.init();
+    }
+  },
+  methods: {
+    init() {
+      window.console.log(this.images);
+    }
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+img {
+  width: 100%;
+}
 </style>
