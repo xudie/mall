@@ -21,6 +21,7 @@ export default {
 @import "~assets/scss/mixins";
 
 .info {
+  width: 100%;
   background-color: $header-bgc-translucent;
   border-top: 1px solid rgb(243, 164, 164);
   &-top {
