@@ -61,9 +61,11 @@ export const getHomeSlider = () => {
         });
 };
 
-//获取热门推荐数据--jsonp
-//page:第几页
-//psize:每页多少条
+/**
+ * 获取热门推荐数据
+ * @param {int} page 页数
+ * @param {int} psize 条数
+ */
 export const getHomeRecommend = (page = 1, psize = HOME_RECOMMEND_PAGE_SIZE) => {
     const url = 'https://ju.taobao.com/json/tg/ajaxGetItemsV2.json';
     const params = {
@@ -96,4 +98,29 @@ export const getHomeRecommend = (page = 1, psize = HOME_RECOMMEND_PAGE_SIZE) => 
     //         }, 1000);
     //     });
     // });
+}
+
+/**
+ * 根据商品ID获取商品详细信息
+ * @param {int} pid 商品ID
+ */
+export const getProductInfoById = (pid) => {
+    // 调用地址
+    let url = `https://unszacs.m.taobao.com/h5/mtop.taobao.detail.getdetail/6.0/` +
+        `?data=%7B"itemNumId"%3A"${pid}"%2C"fromJhsH5"%3A"1"%7D`;
+    window.console.log(url);
+
+    return jsonp(url, null, {
+        param: 'callback'
+    }).then(res => {
+        return res;
+    }).catch(err => {
+        if (err) {
+            window.console.log(err);
+        }
+        return [{
+            linkUrl: "http://www.imooc.com",
+            picUrl: require('assets/img/404.png')
+        }]
+    })
 }
