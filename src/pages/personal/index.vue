@@ -3,50 +3,52 @@
     <header class="g-header-container">
       <personal-header />
     </header>
-    <div class="g-content-container">
-      <me-scroll>
-        <personal-info />
-        <div class="order">
-          <div class="order-inquiry">
-            <div class="order-inquiry-left">
-              <img src="~assets/img/dingdan.png" />
-              <span>我的订单</span>
-            </div>
-            <div class="order-inquiry-right">
-              <span>查看我的全部订单</span>
-              <img src="~assets/img/leftjiantou.png" />
-            </div>
+    <me-scroll class="g-content-container">
+      <personal-info />
+      <div class="order">
+        <div class="order-inquiry">
+          <div class="order-inquiry-left">
+            <img src="~assets/img/dingdan.png" />
+            <span>我的订单</span>
           </div>
-          <ul class="order-service">
-            <li class="order-service-item" v-for="(item,i) in order" :key="i">
-              <img :src="item.imgSrc" />
-              <p>{{item.name}}</p>
-            </li>
-          </ul>
-        </div>
-        <div class="assets">
-          <div class="assets-title">
-            <img src="~assets/img/zichan.png" />
-            <span>我的资产</span>
-          </div>
-          <div class="assets-service">
-            <span>现金券</span>
-            <span>红包</span>
-            <span>余额</span>
-            <span>礼品卡</span>
-          </div>
-        </div>
-        <div class="other">
-          <div class="other-item" v-for="(item,index) in other" :key="index">
-            <div class="other-item-left">
-              <img :src="item.imgSrc" />
-              <span>{{item.name}}</span>
-            </div>
+          <div class="order-inquiry-right">
+            <span>查看我的全部订单</span>
             <img src="~assets/img/leftjiantou.png" />
           </div>
         </div>
-      </me-scroll>
-    </div>
+        <ul class="order-service">
+          <li class="order-service-item" v-for="(item,i) in order" :key="i">
+            <img :src="item.imgSrc" />
+            <p>{{item.name}}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="assets">
+        <div class="assets-title">
+          <img src="~assets/img/zichan.png" />
+          <span>我的资产</span>
+        </div>
+        <div class="assets-service">
+          <span>现金券</span>
+          <span>红包</span>
+          <span>余额</span>
+          <span>礼品卡</span>
+        </div>
+      </div>
+      <div class="other">
+        <div class="other-item" v-for="(item,index) in other" :key="index">
+          <div class="other-item-left">
+            <img :src="item.imgSrc" />
+            <span>{{item.name}}</span>
+          </div>
+          <img src="~assets/img/leftjiantou.png" />
+        </div>
+      </div>
+      <div class="call">
+        <p>客服热线400-123-888888888</p>
+        <p>拨打前请记录好您的UID</p>
+      </div>
+    </me-scroll>
   </div>
 </template>
 
@@ -91,7 +93,7 @@ export default {
       margin-top: 10px;
       &-inquiry {
         height: 35px;
-        border-bottom: 1px solid rgb(212, 211, 211);
+        border-bottom: 1px solid rgb(236, 236, 236);
         @include flex-between();
 
         &-left,
@@ -134,7 +136,7 @@ export default {
       &-title {
         height: 35px;
         width: 100%;
-        border-bottom: 1px solid rgb(212, 211, 211);
+        border-bottom: 1px solid rgb(236, 236, 236);
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -162,10 +164,10 @@ export default {
       width: 100%;
       margin-top: 10px;
       &-item {
-        height: 45px;
+        height: 42px;
         width: 100%;
         background-color: #fff;
-        border-bottom: 1px solid rgb(212, 211, 211);
+        border-bottom: 1px solid rgb(236, 236, 236);
         @include flex-between();
 
         &-left {
@@ -181,6 +183,14 @@ export default {
           height: 20px;
           margin: 0 10px;
         }
+      }
+    }
+    .call {
+      padding: 20px 10px;
+
+      p {
+        font-size: 13px;
+        color: rgb(160, 160, 160);
       }
     }
   }
