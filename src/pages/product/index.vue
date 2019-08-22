@@ -1,10 +1,24 @@
 <template>
-  <div class="product">pruduct</div>
+  <div class="product">
+    <div class="header">
+      <product-header />
+    </div>
+    <me-scroll></me-scroll>
+    <product-footer />
+  </div>
 </template>
 
 <script>
+import ProductHeader from "./header";
+import ProductFooter from "./footer";
+import MeScroll from "base/scroll";
 export default {
-  name: "Pruduct"
+  name: "Pruduct",
+  components: {
+    ProductHeader,
+    ProductFooter,
+    MeScroll
+  }
 };
 </script>
 
