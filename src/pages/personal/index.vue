@@ -18,21 +18,9 @@
             </div>
           </div>
           <ul class="order-service">
-            <li class="order-service-item">
-              <img src="~assets/img/daifukuan.png" />
-              <p>待付款</p>
-            </li>
-            <li class="order-service-item">
-              <img src="~assets/img/daishouhuo.png" />
-              <p>待收货</p>
-            </li>
-            <li class="order-service-item">
-              <img src="~assets/img/daipingjia.png" />
-              <p>待评价</p>
-            </li>
-            <li class="order-service-item">
-              <img src="~assets/img/tuikuan.png" />
-              <p>退货/退款</p>
+            <li class="order-service-item" v-for="(item,i) in order" :key="i">
+              <img :src="item.imgSrc" />
+              <p>{{item.name}}</p>
             </li>
           </ul>
         </div>
@@ -49,41 +37,13 @@
           </div>
         </div>
         <div class="other">
-          <div class="other-item">
+          <div class="other-item" v-for="(item,index) in other" :key="index">
             <div class="other-item-left">
-              <img src="~assets/img/shouhoukefu.png" />
-              <span>我的订单</span>
+              <img :src="item.imgSrc" />
+              <span>{{item.name}}</span>
             </div>
             <img src="~assets/img/leftjiantou.png" />
           </div>
-          <!-- <div class="other-item">
-            <div class="other-item-left">
-              <img src="~assets/img/shouhoukefu.png" />
-              <span>意见反馈</span>
-            </div>
-            <img src="~assets/img/leftjiantou.png" />
-          </div>
-          <div class="other-item">
-            <div class="other-item-left">
-              <img src="~assets/img/shouhoukefu.png" />
-              <span>收货地址</span>
-            </div>
-            <img src="~assets/img/leftjiantou.png" />
-          </div>
-          <div class="other-item">
-            <div class="other-item-left">
-              <img src="~assets/img/shouhoukefu.png" />
-              <span>退出登录</span>
-            </div>
-            <img src="~assets/img/leftjiantou.png" />
-          </div>
-          <div class="other-item">
-            <div class="other-item-left">
-              <img src="~assets/img/shouhoukefu.png" />
-              <span>400-124-8888</span>
-            </div>
-            <img src="~assets/img/leftjiantou.png" />
-          </div>-->
         </div>
       </me-scroll>
     </div>
@@ -94,12 +54,18 @@
 import PersonalHeader from "./header";
 import PersonalInfo from "./info";
 import MeScroll from "base/scroll/index.vue";
+import { otherItem, orderItem } from "./config";
+
 export default {
   name: "Personal",
   components: {
     PersonalHeader,
     PersonalInfo,
     MeScroll
+  },
+  created() {
+    this.other = otherItem;
+    this.order = orderItem;
   }
 };
 </script>
@@ -124,7 +90,7 @@ export default {
       background-color: #fff;
       margin-top: 10px;
       &-inquiry {
-        // height: 30px;
+        height: 35px;
         border-bottom: 1px solid rgb(212, 211, 211);
         @include flex-between();
 
@@ -132,8 +98,8 @@ export default {
         &-right {
           @include flex-center();
           img {
-            width: 20%;
-            height: 20%;
+            width: 20px;
+            height: 20px;
             margin: 0 10px;
           }
         }
@@ -145,7 +111,7 @@ export default {
         }
       }
       &-service {
-        //height: 80px;
+        height: 80px;
         padding: 10px 0;
       }
 
@@ -166,7 +132,7 @@ export default {
     .assets {
       width: 100%;
       &-title {
-        //height: 30px;
+        height: 35px;
         width: 100%;
         border-bottom: 1px solid rgb(212, 211, 211);
         display: flex;
@@ -174,8 +140,8 @@ export default {
         align-items: center;
 
         img {
-          width: 7%;
-          height: 7%;
+          width: 20px;
+          height: 20px;
           margin: 0 10px;
         }
         span {
@@ -184,7 +150,7 @@ export default {
         }
       }
       &-service {
-        //height: 50px;
+        height: 50px;
         padding: 20px 0;
         @include flex-center();
         justify-content: space-around;
@@ -196,7 +162,7 @@ export default {
       width: 100%;
       margin-top: 10px;
       &-item {
-        //height: 30px;
+        height: 45px;
         width: 100%;
         background-color: #fff;
         border-bottom: 1px solid rgb(212, 211, 211);
@@ -209,11 +175,11 @@ export default {
             color: #000;
             font-size: 13px;
           }
-          img {
-            width: 20%;
-            height: 20%;
-            margin: 0 10px;
-          }
+        }
+        img {
+          width: 20px;
+          height: 20px;
+          margin: 0 10px;
         }
       }
     }
