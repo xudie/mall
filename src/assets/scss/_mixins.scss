@@ -9,9 +9,9 @@
 }
 
 // flex-between
-@mixin flex-between() {
+@mixin flex-between($justify-content:space-between) {
   display: flex;
-  justify-content: space-between;
+  justify-content: $justify-content;
   align-items: center;
 }
 

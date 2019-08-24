@@ -34,6 +34,7 @@ export default {
 .g-footer-container {
   @include flex-center();
   height: 50px;
+  background-color: #fff;
   .options {
     width: 40%;
     height: 100%;

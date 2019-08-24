@@ -1,6 +1,12 @@
 <template>
   <div class="slider-wrapper">
-    <me-slider :loop="loop">
+    <me-slider
+      :loop="loop"
+      :direction="direction"
+      :interval="interval"
+      :pagination="pagination"
+      :data="images"
+    >
       <swiper-slide v-for="imgurl in images" :key="imgurl">
         <img :src="imgurl" />
       </swiper-slide>
@@ -32,6 +38,7 @@ export default {
       direction: sliderOptions.direction,
       loop: sliderOptions.loop,
       pagination: sliderOptions.pagination,
+      interval: sliderOptions.interval,
       images: []
     };
   },
@@ -43,7 +50,7 @@ export default {
   },
   methods: {
     init() {
-      window.console.log(this.images);
+      //window.console.log(this.images);
     }
   }
 };
