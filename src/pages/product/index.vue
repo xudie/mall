@@ -4,7 +4,7 @@
       <product-header />
     </div>
     <!-- scroll -->
-    <me-scroll class="g-content-container">
+    <me-scroll class="g-content-container" ref="scroll" @scroll-end="scrollEnd">
       <product-slide :imageList="images" />
       <div class="price-sold">
         <p class="price">￥5888</p>
@@ -66,12 +66,26 @@
       </div>
       <!-- 详情 评价 参数 -->
       <div class="sort">
-        <p>详情</p>
-        <p>评价</p>
-        <p>参数</p>
+        <p @click="currbox = 1">详情</p>
+        <p @click="showProductAssess">评价</p>
+        <p @click="currbox = 3">参数</p>
       </div>
-      <product-assess />
+      <div>
+        <div v-show="currbox == 1">
+          <span>详情</span>
+        </div>
+        <div v-show="currbox == 2">
+          <product-assess ref="productAssess" :pid="pid" />
+        </div>
+        <div v-show="currbox == 3">
+          参数
+          <product-parameter />
+        </div>
+      </div>
     </me-scroll>
+    <div class="g-backtop-container">
+      <me-backtop :visible="isBacktopVisible" @back-to-top="backToTop" />
+    </div>
     <!-- footer -->
     <product-footer />
   </div>
@@ -82,12 +96,15 @@ import ProductHeader from "./header";
 import ProductFooter from "./footer";
 import ProductSlide from "./slider";
 import productAssess from "./assess";
+import productParameter from "./parameter";
 import MeScroll from "base/scroll";
 import { getProductInfoById } from "api/home";
+import MeBacktop from "base/backtop";
 
 export default {
   data() {
     return {
+      pid: 0,
       productInfo: {},
       images: [],
       title: "",
@@ -96,7 +113,9 @@ export default {
       rateList: [],
       shopIcon: "",
       shopName: "",
-      evaluates: []
+      evaluates: [],
+      currbox: 1,
+      isBacktopVisible: false
     };
   },
   name: "Pruduct",
@@ -105,12 +124,18 @@ export default {
     ProductFooter,
     ProductSlide,
     productAssess,
-    MeScroll
+    productParameter,
+    MeScroll,
+    MeBacktop
   },
   created() {
-    let pid = this.$route.params.id;
+    //window.console.log(this.$route);
+
+    // this.$route.params.id
+    // 是取路由中（地址栏中）的参数 id 默认是不用这样写（?id=001）
+    this.pid = this.$route.params.id;
     //window.console.log(pid);
-    getProductInfoById(pid).then(result => {
+    getProductInfoById(this.pid).then(result => {
       //window.console.log(result);
       this.productInfo = result;
       this.images = result.data.item.images;
@@ -122,6 +147,25 @@ export default {
       this.shopName = result.data.seller.shopName;
       this.evaluates = result.data.seller.evaluates;
     });
+  },
+  mounted() {
+    this.$refs.scroll.update();
+  },
+  methods: {
+    showProductAssess() {
+      this.currbox = 2;
+      // 调用子组件中的 load 方法 传入ID
+      this.$refs.productAssess.load(this.pid);
+    },
+    backToTop() {
+      this.$refs.scroll && this.$refs.scroll.scrollToTop();
+    },
+    scrollEnd(translate, scroll) {
+      window.console.log(
+        `translate:${translate} height:${scroll.height} visible:${this.isBacktopVisible}`
+      );
+      this.isBacktopVisible = translate < 0 && -translate > scroll.height;
+    }
   }
 };
 </script>
@@ -145,8 +189,8 @@ export default {
 }
 .g-content-container {
   padding-top: $navbar-height;
+  padding-bottom: $tabbar-height;
   overflow: hidden;
-  height: 100%;
 }
 .price-sold {
   width: 100%;

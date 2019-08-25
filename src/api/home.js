@@ -125,5 +125,16 @@ export const getProductInfoById = (pid) => {
     })
 }
 
-
-//https://h5api.m.taobao.com/h5/mtop.wdetail.getitemrates/3.0/?jsv=2.4.3&appKey=12574478&t=1566639911090&sign=c3ec315bf43fec2c068f2058a2d5dd6e&api=mtop.wdetail.getitemrates&v=3.0&dataType=jsonp&type=jsonp&ttid=2017%40taobao_h5_6.6.0&callback=mtopjsonp7&data=%7B%22auctionNumId%22%3A%22521422451240%22%2C%22hasRateContent%22%3A1%2C%22hasPic%22%3A1%2C%22pageNo%22%3A1%2C%22pageSize%22%3A10%2C%22rateType%22%3A%22%22%7D
+/**
+ * 获取详情页评论列表
+ * @param {int} pid 商品ID
+ * @param {*} pageIndex 页数
+ * @param {*} pageSize 每页大小
+ */
+import {
+    comments
+} from "api/testdata/comment"
+export const getCommentListById = (pid, pageIndex, pageSize) => {
+    window.console.log(pid, pageIndex, pageSize)
+    return comments;
+}

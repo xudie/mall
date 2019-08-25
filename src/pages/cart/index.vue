@@ -1,6 +1,8 @@
 <template>
   <div class="car">
-    <car-header />
+    <div class="car-header">
+      <car-header />
+    </div>
     <me-scroll :scrollbar="true">
       <div class="car-repeat">
         <div class="car-repeat-one">
@@ -20,6 +22,28 @@
       </div>
       <div class="car-commodity"></div>
     </me-scroll>
+    <!-- section -->
+    <div class="section">
+      <div class="shop-name">
+        <div class="select"></div>
+        <img src alt />
+        <span></span>
+        <img src alt />
+      </div>
+      <div class="section-item">
+        <div class="product-information">
+          <div class="product-information-left"></div>
+          <img src alt />
+          <div class="product-information-right">
+            <p></p>
+            <div class="product-select"></div>
+          </div>
+        </div>
+        <div class="buy list">
+          <span></span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,9 +70,13 @@ export default {
 .car {
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  //background-color: #fff;
 
+  &-header {
+    width: 100%;
+  }
   &-repeat {
+    background-color: #fff;
     div {
       height: 50px;
       border-top: 1px solid rgb(224, 224, 224);
@@ -84,6 +112,27 @@ export default {
 
   &.active {
     background-color: green;
+  }
+}
+
+//
+.section {
+  width: 100%;
+  background-color: #fff;
+
+  .shop-name {
+    width: 100%;
+    height: 40px;
+
+    .select {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid #eee;
+    }
+  }
+  &-item {
+    width: 100%;
   }
 }
 </style>
