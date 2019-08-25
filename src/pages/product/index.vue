@@ -64,6 +64,13 @@
           </div>
         </div>
       </div>
+      <!-- 详情 评价 参数 -->
+      <div class="sort">
+        <p>详情</p>
+        <p>评价</p>
+        <p>参数</p>
+      </div>
+      <product-assess />
     </me-scroll>
     <!-- footer -->
     <product-footer />
@@ -74,6 +81,7 @@
 import ProductHeader from "./header";
 import ProductFooter from "./footer";
 import ProductSlide from "./slider";
+import productAssess from "./assess";
 import MeScroll from "base/scroll";
 import { getProductInfoById } from "api/home";
 
@@ -96,6 +104,7 @@ export default {
     ProductHeader,
     ProductFooter,
     ProductSlide,
+    productAssess,
     MeScroll
   },
   created() {
@@ -266,6 +275,7 @@ export default {
       .tmall {
         color: red;
         padding-top: 10px;
+        font-size: 13px;
 
         span {
           font-size: 12px;
@@ -284,7 +294,6 @@ export default {
       @include flex-center();
       padding-right: 10px;
       span {
-        font-size: 14px;
         color: rgb(126, 126, 126);
       }
       .score {
@@ -302,6 +311,22 @@ export default {
         color: #fff;
       }
     }
+  }
+}
+
+//sort
+.sort {
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
+  border-bottom: 1px solid rgb(212, 212, 212);
+  display: flex;
+  margin-top: 10px;
+
+  p {
+    font-size: 15px;
+    flex: 1;
+    @include flex-center();
   }
 }
 </style>
