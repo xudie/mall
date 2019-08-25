@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      // 是否选择优惠券
       isYouhui: true,
       cartData: {
         // 购物车宝贝总数
@@ -74,10 +75,14 @@ export default {
             id: 123456,
             name: "isabufei衣纱布菲",
             isTianMao: true,
+            // 是否被选中
+            isSelected: false,
             commodityList: [
               {
                 id: 123123123123,
                 name: "夏季新款蕾丝性感小睡衣",
+                // 是否被选中
+                isSelected: false,
                 colourList: [
                   {
                     id: 1,
