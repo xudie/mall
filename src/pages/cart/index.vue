@@ -121,7 +121,7 @@
       <div class="car-footer-right">
         <p>
           合计:
-          <span>￥</span>
+          <span>￥{{cartData.totalMyMoney}}</span>
         </p>
         <div class="settlement">
           <span>结算()</span>
@@ -147,8 +147,8 @@ export default {
       cartData: {
         // 购物车宝贝总数
         totalCount: 6,
-        totalMoney: 599.99,
-        totalMyMoney: 266.12,
+        //totalMoney: 599.99,
+        totalMyMoney: 0,
         allSelected: false,
         shopList: [
           {
@@ -296,6 +296,13 @@ export default {
 
       this.cartData.shopList[shopindex].commodityList.forEach(item => {
         item.isSelected = this.cartData.shopList[shopindex].isSelected;
+
+        //money
+        if (item.isSelected) {
+          this.cartData.totalMyMoney += item.money;
+        } else {
+          this.cartData.totalMyMoney = 0;
+        }
       });
 
       this.checkedSelectedAll();
@@ -308,6 +315,18 @@ export default {
         itemindex
       ].isSelected = !this.cartData.shopList[shopindex].commodityList[itemindex]
         .isSelected;
+      //money
+      if (
+        this.cartData.shopList[shopindex].commodityList[itemindex].isSelected
+      ) {
+        this.cartData.totalMyMoney += this.cartData.shopList[
+          shopindex
+        ].commodityList[itemindex].money;
+      } else {
+        this.cartData.totalMyMoney -= this.cartData.shopList[
+          shopindex
+        ].commodityList[itemindex].money;
+      }
 
       {
         // let itemindexLenght = this.cartData.shopList[shopindex].commodityList
@@ -356,6 +375,7 @@ export default {
       this.checkedSelectedAll();
       this.$forceUpdate();
     },
+
     checkedSelectedAll() {
       if (this.cartData.shopList.filter(item => !item.isSelected).length == 0) {
         window.console.log("都选了");
@@ -370,12 +390,26 @@ export default {
         shop.isSelected = this.cartData.allSelected;
         shop.commodityList.forEach(item => {
           item.isSelected = this.cartData.allSelected;
+          //money
+          if (this.cartData.allSelected) {
+            this.cartData.totalMyMoney += item.money;
+            window.console.log(this.cartData.totalMyMoney);
+          } else {
+            this.cartData.totalMyMoney = 0;
+          }
         });
       });
       window.console.log(this.cartData.allSelected);
       this.$forceUpdate();
     }
     // 计算价格和数量 ： 依次循环每一家店中的每一件商品 判断选中则 累加数量 和 money
+    //     totalMoney(){
+    // this.cartData.shopList.forEach(shop=>{
+    //   shop.commodityList(list=>{
+
+    //   })
+    // })
+    //     }
   }
 };
 </script>
