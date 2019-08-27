@@ -15,7 +15,7 @@
       </li>
     </ul>
     <div class="join-car">
-      <p>加入购物车</p>
+      <p @click="addShoppingCar">加入购物车</p>
     </div>
     <div class="buy">
       <p>立即购买</p>
@@ -25,7 +25,12 @@
 
 <script>
 export default {
-  name: "ProductFooter"
+  name: "ProductFooter",
+  methods: {
+    addShoppingCar() {
+      this.$emit("add-shopping-car");
+    }
+  }
 };
 </script>
 

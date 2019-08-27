@@ -7,7 +7,7 @@
     <me-scroll class="g-content-container" ref="scroll" @scroll-end="scrollEnd">
       <product-slide :imageList="images" />
       <div class="price-sold">
-        <p class="price">￥5888</p>
+        <p class="price">￥{{price}}</p>
         <p class="sold">{{favcount}}件已售</p>
       </div>
       <!-- product -info-->
@@ -87,7 +87,7 @@
       <me-backtop :visible="isBacktopVisible" @back-to-top="backToTop" />
     </div>
     <!-- footer -->
-    <product-footer />
+    <product-footer @add-shopping-car="addShoppingCar" />
   </div>
 </template>
 
@@ -108,9 +108,13 @@ export default {
       productInfo: {},
       images: [],
       title: "",
+      price: 0.0,
+      mockData: {},
+      stack: {},
       favcount: 0,
       rateTotal: 0,
       rateList: [],
+      shopId: 0,
       shopIcon: "",
       shopName: "",
       evaluates: [],
@@ -140,9 +144,16 @@ export default {
       this.productInfo = result;
       this.images = result.data.item.images;
       this.title = result.data.item.title;
+      // 把json字符串转成对象
+      this.mockData = JSON.parse(result.data.mockData);
+      window.console.log(this.mockData);
+      this.stack = JSON.parse(result.data.apiStack[0].value);
+      window.console.log(this.stack);
+      this.price = this.mockData.price.price.priceText;
       this.favcount = result.data.item.favcount;
       this.rateTotal = result.data.item.commentCount;
       this.rateList = result.data.rate.rateList;
+      this.shopId = result.data.seller.shopId;
       this.shopIcon = result.data.seller.shopIcon;
       this.shopName = result.data.seller.shopName;
       this.evaluates = result.data.seller.evaluates;
@@ -165,6 +176,115 @@ export default {
         `translate:${translate} height:${scroll.height} visible:${this.isBacktopVisible}`
       );
       this.isBacktopVisible = translate < 0 && -translate > scroll.height;
+    },
+    addShoppingCar() {
+      // 加入购物车逻辑
+      let shoppingCarData = JSON.parse(
+        window.localStorage.getItem("shoppingCarData")
+      );
+
+      if (shoppingCarData == null) {
+        shoppingCarData = {
+          // 购物车宝贝总数
+          totalCount: 0,
+          totalMoney: 0,
+          allSelected: false,
+          shopList: []
+        };
+
+        let shop = {
+          id: this.shopId,
+          name: this.shopName,
+          isSelected: false,
+          commodityList: []
+        };
+
+        let commodity = {
+          pid: this.pid,
+          money: this.price,
+          name: this.title,
+          isSelected: false,
+          imgSrc: this.images[0],
+          props:
+            typeof this.stack.skuBase == "undefined"
+              ? {}
+              : typeof this.stack.skuBase.props == "undefined"
+              ? {}
+              : this.stack.skuBase.props,
+          count: 1
+        };
+
+        shop.commodityList.push(commodity);
+        shoppingCarData.shopList.push(shop);
+      } else {
+        let shopList = shoppingCarData.shopList.filter(
+          shop => shop.id == this.shopId
+        );
+        if (
+          // 判断是否存在这个门店
+          shopList.length > 0
+        ) {
+          window.console.log("存在该门店");
+          if (
+            // 判断门店中是否存在这个商品
+            shopList[0].commodityList.filter(item => item.pid == this.pid)
+              .length > 0
+          ) {
+            window.console.log("存在该商品");
+            shoppingCarData.shopList
+              .filter(shop => shop.id == this.shopId)[0]
+              .commodityList.filter(item => item.pid == this.pid)[0].count++;
+          } else {
+            window.console.log("不存在该商品");
+            let commodity = {
+              pid: this.pid,
+              money: this.price,
+              name: this.title,
+              isSelected: false,
+              imgSrc: this.images[0],
+              props:
+                typeof this.stack.skuBase == "undefined"
+                  ? {}
+                  : typeof this.stack.skuBase.props == "undefined"
+                  ? {}
+                  : this.stack.skuBase.props,
+              count: 1
+            };
+            shoppingCarData.shopList
+              .filter(shop => shop.id == this.shopId)[0]
+              .commodityList.push(commodity);
+          }
+        } else {
+          window.console.log("不存在该门店");
+          let shop = {
+            id: this.shopId,
+            name: this.shopName,
+            isSelected: false,
+            commodityList: []
+          };
+
+          let commodity = {
+            pid: this.pid,
+            money: this.price,
+            name: this.title,
+            isSelected: false,
+            imgSrc: this.images[0],
+            props:
+              typeof this.stack.skuBase == "undefined"
+                ? {}
+                : typeof this.stack.skuBase.props == "undefined"
+                ? {}
+                : this.stack.skuBase.props,
+            count: 1
+          };
+          shop.commodityList.push(commodity);
+          shoppingCarData.shopList.push(shop);
+        }
+      }
+
+      // 把购物车数据对象转换成JSON
+      let json = JSON.stringify(shoppingCarData);
+      window.localStorage.setItem("shoppingCarData", json);
     }
   }
 };
