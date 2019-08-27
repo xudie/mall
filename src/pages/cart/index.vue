@@ -51,7 +51,7 @@
             <img :src="item.imgSrc" />
             <div class="product-information-right">
               <p>{{item.name}}</p>
-              <div class="product-select">
+              <div class="product-select" @click="buyShow=!buyShow">
                 <span>蓝色</span>
                 <span>s</span>
                 <img src="~assets/img/bottom.png" />
@@ -69,47 +69,6 @@
           </div>
         </div>
       </div>
-      <!-- 商品型号选择页 -->
-      <div class="buy-item">
-        <div class="buy-item-top">
-          <img src="~assets/img/404.png" />
-          <div class="select-content">
-            <p class="select-content-price">￥</p>
-            <p class="select-content-reserve">库存</p>
-            <p class="select-content-selected">已选：</p>
-          </div>
-          <i class="iconfont icon-delete"></i>
-        </div>
-        <!-- color -->
-        <div class="buy-item-color">
-          <p>颜色分类</p>
-          <div class="color-item">
-            <div class="color-list">
-              <img src="~assets/img/404.png" />
-              <span>灰蓝色（现货）</span>
-            </div>
-          </div>
-        </div>
-        <!-- size -->
-        <div class="buy-item-size">
-          <p>尺码</p>
-          <div class="size-item">
-            <div class="size-list">
-              <span>s</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- sure -->
-        <div class="buy-item-footer">
-          <p class="sure">
-            <span>确定</span>
-          </p>
-          <p class="see-details">
-            <span>查看详情</span>
-          </p>
-        </div>
-      </div>
     </me-scroll>
     <div class="car-footer">
       <div class="car-footer-left">
@@ -121,11 +80,52 @@
       <div class="car-footer-right">
         <p>
           合计:
-          <span>￥{{cartData.totalMyMoney}}</span>
+          <span>￥{{cartData.totalMoney.toFixed(2)}}&nbsp;&nbsp;</span>
         </p>
         <div class="settlement">
-          <span>结算()</span>
+          <span>结算({{cartData.totalCount}})</span>
         </div>
+      </div>
+    </div>
+    <!-- 商品型号选择页 -->
+    <div class="buy-item" :v-show="buyShow">
+      <div class="buy-item-top">
+        <img src="~assets/img/404.png" />
+        <div class="select-content">
+          <p class="select-content-price">￥</p>
+          <p class="select-content-reserve">库存</p>
+          <p class="select-content-selected">已选：</p>
+        </div>
+        <i class="iconfont icon-delete"></i>
+      </div>
+      <!-- color -->
+      <div class="buy-item-color">
+        <p>颜色分类</p>
+        <div class="color-item">
+          <div class="color-list">
+            <img src="~assets/img/404.png" />
+            <span>灰蓝色（现货）</span>
+          </div>
+        </div>
+      </div>
+      <!-- size -->
+      <div class="buy-item-size">
+        <p>尺码</p>
+        <div class="size-item">
+          <div class="size-list">
+            <span>s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- sure -->
+      <div class="buy-item-footer">
+        <p class="sure">
+          <span>确定</span>
+        </p>
+        <p class="see-details">
+          <span>查看详情</span>
+        </p>
       </div>
     </div>
   </div>
@@ -142,13 +142,13 @@ export default {
   },
   data() {
     return {
+      buyShow: false,
       // 是否选择优惠券
       isYouhui: true,
       cartData: {
         // 购物车宝贝总数
-        totalCount: 6,
-        //totalMoney: 599.99,
-        totalMyMoney: 0,
+        totalCount: 0,
+        totalMoney: 0,
         allSelected: false,
         shopList: [
           {
@@ -201,11 +201,15 @@ export default {
             id: 123456,
             name: "衣纱布菲",
             isTianMao: true,
+            isSelected: false,
             commodityList: [
               {
                 id: 123123123123,
                 money: 333.99,
                 name: "2019夏季新款夏季新款连衣裙收腰显气质百搭仙女裙",
+                // 是否被选中
+                isSelected: false,
+                imgSrc: "~assets/img/404.png",
                 colourList: [
                   {
                     id: 1,
@@ -240,6 +244,9 @@ export default {
                 id: 123123123123,
                 money: 666.99,
                 name: "2019夏季新款夏季新款连衣裙收腰显气质百搭仙女裙",
+                // 是否被选中
+                isSelected: false,
+                imgSrc: "~assets/img/404.png",
                 colourList: [
                   {
                     id: 1,
@@ -268,7 +275,7 @@ export default {
                 colourName: "粉红色",
                 size: 2,
                 sizeName: "S",
-                count: 99
+                count: 1
               }
             ]
           }
@@ -283,9 +290,11 @@ export default {
       ) {
         this.cartData.shopList[shopindex].commodityList[itemindex].count--;
       }
+      this.updateTotalMoney();
     },
     countAdd(shopindex, itemindex) {
       this.cartData.shopList[shopindex].commodityList[itemindex].count++;
+      this.updateTotalMoney();
     },
     selectedShop(shopindex) {
       window.console.log("shopindex:" + shopindex);
@@ -296,17 +305,19 @@ export default {
 
       this.cartData.shopList[shopindex].commodityList.forEach(item => {
         item.isSelected = this.cartData.shopList[shopindex].isSelected;
-
+        window.console.log(item.count);
         //money
-        if (item.isSelected) {
-          this.cartData.totalMyMoney += item.money;
-        } else {
-          this.cartData.totalMyMoney = 0;
-        }
+        // if (item.isSelected) {
+        //   this.cartData.totalMyMoney += item.money * item.count;
+        //   window.console.log(item.count);
+        // } else {
+        //   this.cartData.totalMyMoney -= item.money * item.count;
+        // }
       });
 
       this.checkedSelectedAll();
       // 当你的数剧层次太多，数据是变化了的，但是dom没有更新，没有自动双向数据驱动
+      this.updateTotalMoney();
       this.$forceUpdate();
     },
     selectedCommodity(shopindex, itemindex) {
@@ -315,50 +326,6 @@ export default {
         itemindex
       ].isSelected = !this.cartData.shopList[shopindex].commodityList[itemindex]
         .isSelected;
-      //money
-      if (
-        this.cartData.shopList[shopindex].commodityList[itemindex].isSelected
-      ) {
-        this.cartData.totalMyMoney += this.cartData.shopList[
-          shopindex
-        ].commodityList[itemindex].money;
-      } else {
-        this.cartData.totalMyMoney -= this.cartData.shopList[
-          shopindex
-        ].commodityList[itemindex].money;
-      }
-
-      {
-        // let itemindexLenght = this.cartData.shopList[shopindex].commodityList
-        //   .length;
-        // this.cartData.shopList[shopindex].commodityList.forEach(item => {
-        //   if (item.isSelected) {
-        //     itemindexLenght--;
-        //     if (itemindexLenght === 0) {
-        //       window.console.log("都选了");
-        //     }
-        //   }
-        // });
-        //
-        // 逆向思维
-        // this.cartData.shopList[shopindex].isSelected = true;
-        // this.cartData.shopList[shopindex].commodityList.forEach(item => {
-        //   if (!item.isSelected) {
-        //     window.console.log("有没有选了");
-        //     this.cartData.shopList[shopindex].isSelected = false;
-        //     return;
-        //   }
-        // });
-        //
-        // let length = this.cartData.shopList[shopindex].commodityList.length;
-        // let selectedLength = this.cartData.shopList[
-        //   shopindex
-        // ].commodityList.filter(item => item.isSelected).length;
-        // if (length == selectedLength) {
-        //   window.console.log("都选了");
-        //   this.cartData.shopList[shopindex].isSelected = true;
-        // }
-      }
 
       // 逆向思维;
       if (
@@ -373,9 +340,9 @@ export default {
       }
 
       this.checkedSelectedAll();
+      this.updateTotalMoney();
       this.$forceUpdate();
     },
-
     checkedSelectedAll() {
       if (this.cartData.shopList.filter(item => !item.isSelected).length == 0) {
         window.console.log("都选了");
@@ -390,26 +357,29 @@ export default {
         shop.isSelected = this.cartData.allSelected;
         shop.commodityList.forEach(item => {
           item.isSelected = this.cartData.allSelected;
-          //money
-          if (this.cartData.allSelected) {
-            this.cartData.totalMyMoney += item.money;
-            window.console.log(this.cartData.totalMyMoney);
-          } else {
-            this.cartData.totalMyMoney = 0;
-          }
         });
       });
       window.console.log(this.cartData.allSelected);
+      this.updateTotalMoney();
       this.$forceUpdate();
-    }
-    // 计算价格和数量 ： 依次循环每一家店中的每一件商品 判断选中则 累加数量 和 money
-    //     totalMoney(){
-    // this.cartData.shopList.forEach(shop=>{
-    //   shop.commodityList(list=>{
+    },
+    updateTotalMoney() {
+      // 计算价格和数量 ： 依次循环每一家店中的每一件商品 判断选中则 累加数量 和 money
+      // 初始化
+      this.cartData.totalMoney = 0;
+      this.cartData.totalCount = 0;
 
-    //   })
-    // })
-    //     }
+      this.cartData.shopList.forEach(shop => {
+        if (shop.isSelected) {
+          shop.commodityList.forEach(item => {
+            if (item.isSelected) {
+              this.cartData.totalMoney += item.money * item.count;
+              this.cartData.totalCount++;
+            }
+          });
+        }
+      });
+    }
   }
 };
 </script>
@@ -602,9 +572,12 @@ export default {
 //buy-item
 .buy-item {
   width: 100%;
+  height: 100%;
   background-color: #fff;
   margin-top: 10px;
   position: relative;
+  //top: -700px;
+  z-index: $search-popup-z-index;
   &-top {
     height: 100px;
     padding: 10px 20px;
@@ -679,21 +652,40 @@ export default {
     padding: 30px 10px;
     @include flex-center();
     .sure {
-      width: 40%;
-      height: 30px;
-
+      border-radius: 10px 0 0 10px;
       background: -webkit-linear-gradient(
         left,
         rgb(233, 131, 36),
-        rgb(245, 80, 4)
+        rgb(241, 112, 52)
       );
-      background: -o-linear-gradient(right, rgb(233, 131, 36), rgb(245, 80, 4));
+      background: -o-linear-gradient(
+        right,
+        rgb(233, 131, 36),
+        rgb(241, 112, 52)
+      );
       background: -moz-linear-gradient(
         right,
         rgb(233, 131, 36),
-        rgb(245, 80, 4)
+        rgb(241, 112, 52)
       );
-      background: linear-gradient(to right, rgb(233, 131, 36), rgb(245, 80, 4));
+      background: linear-gradient(
+        to right,
+        rgb(233, 131, 36),
+        rgb(241, 112, 52)
+      );
+    }
+    .see-details {
+      border-radius: 0 10px 10px 0;
+      background-color: rgb(245, 80, 4);
+    }
+    .sure,
+    .see-details {
+      width: 40%;
+      height: 30px;
+      @include flex-center();
+      span {
+        color: #fff;
+      }
     }
   }
 }
