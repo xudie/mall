@@ -8,33 +8,6 @@
       型号
       <span>24包整箱装</span>
     </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
-    <p>
-      <span></span>
-    </p>
   </div>
 </template>
 

@@ -428,7 +428,14 @@ export default {
     width: 100%;
     padding: 10px 0;
     @include flex-between(flex-start);
-
+    .shop-logo {
+      width: 50px;
+      height: 50px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
     .shop-name {
       padding: 0 20px;
       p {

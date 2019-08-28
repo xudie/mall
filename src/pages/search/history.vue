@@ -4,6 +4,7 @@
     <transition-group class="g-list" name="list" tag="ul">
       <li class="g-list-item" v-for="item in historys" :key="item" @click="$_selectItem(item)">
         <span class="g-list-text">{{item}}</span>
+        <!-- @click.stop 阻止事件冒泡 -->
         <i class="iconfont icon-delete" @click.stop="removeItem(item)"></i>
       </li>
     </transition-group>

@@ -51,7 +51,7 @@
             <img :src="item.imgSrc" />
             <div class="product-information-right">
               <p>{{item.name}}</p>
-              <div class="product-select" @click="buyShow=!buyShow">
+              <div class="product-select" @click="moderShow">
                 <span>蓝色</span>
                 <span>s</span>
                 <img src="~assets/img/bottom.png" />
@@ -70,6 +70,7 @@
         </div>
       </div>
     </me-scroll>
+    <product-model ref="model"></product-model>
     <div class="car-footer">
       <div class="car-footer-left">
         <div class="select" :class="{'select-active' :cartData.allSelected }" @click="selectedAll">
@@ -87,74 +88,53 @@
         </div>
       </div>
     </div>
-    <!-- 商品型号选择页 -->
-    <div class="buy-item" :v-show="buyShow">
-      <div class="buy-item-top">
-        <img src="~assets/img/404.png" />
-        <div class="select-content">
-          <p class="select-content-price">￥</p>
-          <p class="select-content-reserve">库存</p>
-          <p class="select-content-selected">已选：</p>
-        </div>
-        <i class="iconfont icon-delete"></i>
-      </div>
-      <!-- color -->
-      <div class="buy-item-color">
-        <p>颜色分类</p>
-        <div class="color-item">
-          <div class="color-list">
-            <img src="~assets/img/404.png" />
-            <span>灰蓝色（现货）</span>
-          </div>
-        </div>
-      </div>
-      <!-- size -->
-      <div class="buy-item-size">
-        <p>尺码</p>
-        <div class="size-item">
-          <div class="size-list">
-            <span>s</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- sure -->
-      <div class="buy-item-footer">
-        <p class="sure">
-          <span>确定</span>
-        </p>
-        <p class="see-details">
-          <span>查看详情</span>
-        </p>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import CarHeader from "./header";
 import MeScroll from "base/scroll";
+import ProductModel from "./model";
 export default {
   name: "Cart",
   components: {
     CarHeader,
+    ProductModel,
     MeScroll
   },
   data() {
     return {
-      buyShow: false,
       // 是否选择优惠券
       isYouhui: true,
-      cartData: {}
+      cartData: {},
+      props: [],
+      money: 0
     };
   },
   created() {
     this.cartData = JSON.parse(window.localStorage.getItem("shoppingCarData"));
+    //获取props
+    // this.props = this.cartData.shopList.forEach(shop => {
+    //   //
+    // });
+
+    //this.money =
+    // this.cartData.shopList.forEach(shop => {
+    //   shop.commodityList.forEach(commodity => {
+    //     window.console.log(commodity.money);
+    //   });
+    // });
+
+    // window.console.log("props", this.props);
+    // window.console.log("money", this.money);
   },
   mounted() {
     this.cartData = JSON.parse(window.localStorage.getItem("shoppingCarData"));
   },
   methods: {
+    moderShow() {
+      this.$refs.model.show();
+    },
     countLess(shopindex, itemindex) {
       if (
         this.cartData.shopList[shopindex].commodityList[itemindex].count > 1
@@ -440,126 +420,6 @@ export default {
   }
 }
 
-//buy-item
-.buy-item {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  margin-top: 10px;
-  position: relative;
-  //top: -700px;
-  z-index: $search-popup-z-index;
-  &-top {
-    height: 100px;
-    padding: 10px 20px;
-    @include flex-between(flex-start);
-    border-bottom: 1px solid #eee;
-
-    img {
-      width: 80px;
-      height: 80px;
-      //margin: 0 10px;
-      border: 1px solid rgb(173, 173, 173);
-    }
-    .select-content {
-      height: 80px;
-      padding: 0 20px;
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
-
-      &-price {
-        color: rgb(245, 93, 4);
-      }
-      &-reserve {
-        padding: 5px 0;
-      }
-      &-selected {
-        color: #000;
-      }
-    }
-    .iconfont {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: rgb(206, 204, 204);
-      font-size: 12px;
-    }
-  }
-
-  &-color {
-    padding: 10px 10px;
-    border-bottom: 1px solid #eee;
-    p {
-      padding-bottom: 5px;
-      color: #000;
-    }
-    .color-item {
-      height: 30px;
-
-      .color-list {
-        height: 25px;
-        padding: 5px 0px;
-        padding-right: 10px;
-        margin-right: 10px;
-        background-color: #eee;
-        border-radius: 5px;
-        @include flex-between(flex-start);
-        img {
-          width: 16px;
-          height: 16px;
-          margin: 0 5px;
-        }
-        span {
-          color: #000;
-        }
-      }
-    }
-  }
-
-  //footer
-  &-footer {
-    height: 40px;
-    padding: 30px 10px;
-    @include flex-center();
-    .sure {
-      border-radius: 10px 0 0 10px;
-      background: -webkit-linear-gradient(
-        left,
-        rgb(233, 131, 36),
-        rgb(241, 112, 52)
-      );
-      background: -o-linear-gradient(
-        right,
-        rgb(233, 131, 36),
-        rgb(241, 112, 52)
-      );
-      background: -moz-linear-gradient(
-        right,
-        rgb(233, 131, 36),
-        rgb(241, 112, 52)
-      );
-      background: linear-gradient(
-        to right,
-        rgb(233, 131, 36),
-        rgb(241, 112, 52)
-      );
-    }
-    .see-details {
-      border-radius: 0 10px 10px 0;
-      background-color: rgb(245, 80, 4);
-    }
-    .sure,
-    .see-details {
-      width: 40%;
-      height: 30px;
-      @include flex-center();
-      span {
-        color: #fff;
-      }
-    }
-  }
-}
 //公共样式
 .select {
   width: 15px;
