@@ -63,12 +63,14 @@ export default {
   .join-car {
     background-color: rgb(236, 176, 64);
     p {
-      color: rgb(241, 223, 189);
+      color: #fff;
+      font-size: 14px;
     }
   }
   .buy {
     background-color: rgb(231, 14, 14);
-    color: rgb(240, 192, 192);
+    color: #fff;
+    font-size: 14px;
   }
 }
 </style>

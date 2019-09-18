@@ -20,6 +20,9 @@
           <span>商品用券前已免运费</span>
         </div>
       </div>
+      <div class="nullcar" v-if="cartData.shopList.length == 0">
+        <span>购物车是空的哦，快去选购吧！</span>
+      </div>
       <!-- section -->
       <div class="section" v-for="(shop,shopindex) in cartData.shopList" :key="shopindex">
         <!-- shop-->
@@ -106,19 +109,26 @@ export default {
     return {
       // 是否选择优惠券
       isYouhui: true,
-      cartData: {}
+      cartData: {
+        allSelected: false,
+        totalMoney: 0,
+        totalCount: 0,
+        shopList: []
+      }
     };
   },
-  created() {
-    this.cartData = JSON.parse(window.localStorage.getItem("shoppingCarData"));
-    // let list = [1, 2, 3];
-    // let xxx = list.forEach(i => i);
-    // window.console.log(xxx);
-  },
+  created() {},
   mounted() {
-    this.cartData = JSON.parse(window.localStorage.getItem("shoppingCarData"));
+    this.loadData();
   },
   methods: {
+    loadData() {
+      var json = JSON.parse(window.localStorage.getItem("shoppingCarData"));
+      window.console.log(json);
+      if (json) {
+        this.cartData = json;
+      }
+    },
     moderShow(item) {
       this.$refs.model.show(item);
     },
@@ -218,6 +228,9 @@ export default {
         }
       });
     }
+  },
+  activated() {
+    this.loadData();
   }
 };
 </script>
@@ -267,6 +280,16 @@ export default {
   &.active {
     background-color: green;
   }
+}
+
+.nullcar {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  // align-content: center;
+  // justify-items: center;
+  align-items: center;
+  font-size: 14px;
 }
 
 //

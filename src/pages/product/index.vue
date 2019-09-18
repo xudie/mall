@@ -287,6 +287,7 @@ export default {
       // 把购物车数据对象转换成JSON
       let json = JSON.stringify(shoppingCarData);
       window.localStorage.setItem("shoppingCarData", json);
+      window.alert("加入购物车成功！");
     }
   }
 };
