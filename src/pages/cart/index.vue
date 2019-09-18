@@ -51,7 +51,7 @@
             <img :src="item.imgSrc" />
             <div class="product-information-right">
               <p>{{item.name}}</p>
-              <div class="product-select" @click="moderShow">
+              <div class="product-select" @click="moderShow(item)">
                 <span>蓝色</span>
                 <span>s</span>
                 <img src="~assets/img/bottom.png" />
@@ -106,34 +106,21 @@ export default {
     return {
       // 是否选择优惠券
       isYouhui: true,
-      cartData: {},
-      props: [],
-      money: 0
+      cartData: {}
     };
   },
   created() {
     this.cartData = JSON.parse(window.localStorage.getItem("shoppingCarData"));
-    //获取props
-    // this.props = this.cartData.shopList.forEach(shop => {
-    //   //
-    // });
-
-    //this.money =
-    // this.cartData.shopList.forEach(shop => {
-    //   shop.commodityList.forEach(commodity => {
-    //     window.console.log(commodity.money);
-    //   });
-    // });
-
-    // window.console.log("props", this.props);
-    // window.console.log("money", this.money);
+    // let list = [1, 2, 3];
+    // let xxx = list.forEach(i => i);
+    // window.console.log(xxx);
   },
   mounted() {
     this.cartData = JSON.parse(window.localStorage.getItem("shoppingCarData"));
   },
   methods: {
-    moderShow() {
-      this.$refs.model.show();
+    moderShow(item) {
+      this.$refs.model.show(item);
     },
     countLess(shopindex, itemindex) {
       if (

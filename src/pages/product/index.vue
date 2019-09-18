@@ -157,11 +157,13 @@ export default {
       this.shopIcon = result.data.seller.shopIcon;
       this.shopName = result.data.seller.shopName;
       this.evaluates = result.data.seller.evaluates;
+
+      window.setTimeout(() => {
+        this.$refs.scroll.update();
+      }, 1000);
     });
   },
-  mounted() {
-    this.$refs.scroll.update();
-  },
+  mounted() {},
   methods: {
     showProductAssess() {
       this.currbox = 2;

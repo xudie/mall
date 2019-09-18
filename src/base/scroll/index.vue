@@ -72,6 +72,7 @@ export default {
         // 8. 使用 swiper api 更新 swiper
         this.$refs.swiper && this.$refs.swiper.swiper.update();
       });
+      window.console.log("触发滚动条更新事件！");
     },
     //回到顶部事件
     scrollToTop(speed, runCallbacks) {

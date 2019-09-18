@@ -64,7 +64,8 @@ export default {
     }
   },
   methods: {
-    show() {
+    show(commodity) {
+      window.console.log(commodity);
       this.buyShow = true;
     },
     hide() {
